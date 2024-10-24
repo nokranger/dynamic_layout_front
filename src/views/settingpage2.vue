@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      Setting page
+      Setting page Working Station
     </h1>
     <div>
       <b-container>
@@ -10,20 +10,44 @@
           <b-col>
             <div>
               <div>
-                track sign
+                Picking Sequence
               </div>
               <div>
                 <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
+                  <option value="volvo">Ascending</option>
+                  <option value="saab">Descending</option>
+                  <option value="opel">Shoping</option>
+                  <option value="audi">Audi</option>
                 </select>
               </div>
             </div>
             <div>
               <div>
-                ID Serie
+                Lot Size
+              </div>
+              <div>
+                <select name="cars" id="cars">
+                  <option value="volvo">3</option>
+                  <option value="saab">6</option>
+                  <option value="opel">9</option>
+                  <option value="audi">12</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div>
+                Condition
+              </div>
+              <div>
+                <select name="cars" id="cars">
+                  <option value="volvo">Single</option>
+                  <option value="saab">Parting</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div>
+                Layout Level
               </div>
               <div>
                 <b-input></b-input>
@@ -31,7 +55,7 @@
             </div>
             <div>
               <div>
-                Series Name
+                Layout Part number
               </div>
               <div>
                 <b-input></b-input>
@@ -39,74 +63,41 @@
             </div>
             <div>
               <div>
-                Format
-              </div>
-              <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <div>
-                Conversion
-              </div>
-              <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <div>
-                Order
-              </div>
-              <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <div>
-                Model
+                Layout Quantity
               </div>
               <div>
                 <b-input></b-input>
               </div>
             </div>
             <div>
+              <div>
+                Setting Part for picture
+              </div>
+              <div>
+                <b-input placeholder="Setting picture part on conversion C:/E-telemail/Main Picture"></b-input>
+              </div>
+            </div>
+            <!-- <div>
               <div>
                 Version
               </div>
               <div>
                 <b-input></b-input>
               </div>
-            </div>
+            </div> -->
           </b-col>
           <b-col></b-col>
         </b-row>
         <br>
         <b-row>
           <b-col>
-            <b-button variant="outline-primary" style="margin: 5px;">Add</b-button>
-            <b-button variant="outline-danger" style="margin: 5px;">Copy to</b-button>
-            <b-button variant="outline-info" style="margin: 5px;">Exit</b-button>
+            <b-button variant="outline-primary" style="margin: 5px;">Save Setting</b-button>
           </b-col>
         </b-row>
         <br>
-        <b-row>
+        <!-- <b-row>
           <b-table striped hover :items="items"></b-table>
-        </b-row>
+        </b-row> -->
       </b-container>
     </div>
   </div>

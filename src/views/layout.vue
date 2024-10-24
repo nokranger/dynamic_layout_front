@@ -10,63 +10,78 @@
                   <b-button>Back</b-button>
                 </div>
               </b-row>
+              <br>
               <b-row>
                 <div>
-                  <b-button>1</b-button>
+                  <b-button variant="outline-dark">1</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>2</b-button>
+                  <b-button variant="outline-dark">2</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>3</b-button>
+                  <b-button variant="outline-dark">3</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>4</b-button>
+                  <b-button variant="outline-dark">4</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>5</b-button>
+                  <b-button variant="outline-dark">5</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>6</b-button>
+                  <b-button variant="outline-dark">6</b-button>
                 </div>
               </b-row>
               <b-row>
                 <div>
-                  <b-button>7</b-button>
+                  <b-button variant="outline-dark">7</b-button>
                 </div>
               </b-row>
             </b-col>
             <b-col>
-              Layout
+              <h1>
+                Layout
+              </h1>
               <b-row>
-                <b-button>A</b-button>
+                <b-col>
+                  <b-button variant="outline-dark">A</b-button>
+                </b-col>
               </b-row>
               <b-row>
-                <b-button>B</b-button>
+                <b-col>
+                  <b-button variant="outline-dark">B</b-button>
+                </b-col>
               </b-row>
               <b-row>
-                <b-button>C</b-button>
+                <b-col>
+                  <b-button variant="outline-dark">C</b-button>
+                </b-col>
               </b-row>
               <b-row>
-                <b-button>D</b-button>
+                <b-col>
+                  <b-button variant="outline-dark">D</b-button>
+                </b-col>
               </b-row>
               <b-row>
-                <b-button>E</b-button>
+                <b-col>
+                  <b-button variant="outline-dark">E</b-button>
+                </b-col>
               </b-row>
             </b-col>
             <b-col>
               <div>
-                SEQ100
+                <h1>
+                  SEQ100
+                </h1>
               </div>
               <b-row>
                 <b-col>
@@ -82,40 +97,46 @@
                   <b-input></b-input>
                 </b-col>
               </b-row>
+              <br>
               <b-row>
                 <b-col>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
-                  <b-button>1</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
+                  <b-button variant="outline-dark">-</b-button>
                 </b-col>
               </b-row>
+              <br>
               <b-row>
                 <b-col>
-                  <b-button>1</b-button>
-                  <b-button>2</b-button>
-                  <b-button>3</b-button>
-                  <b-button>4</b-button>
-                  <b-button>5</b-button>
-                  <b-button>6</b-button>
+                  <b-button variant="outline-primary">1</b-button>
+                  <b-button variant="outline-primary">2</b-button>
+                  <b-button variant="outline-primary">3</b-button>
+                  <b-button variant="outline-primary">4</b-button>
+                  <b-button variant="outline-primary">5</b-button>
+                  <b-button variant="outline-primary">6</b-button>
                 </b-col>
               </b-row>
+              <br>
               <b-row>
-                <b-button>
-                  Confirm
-                </b-button>
+                <b-col>
+                  <b-button>
+                    Confirm
+                  </b-button>
+                </b-col>
+
               </b-row>
             </b-col>
           </b-row>
@@ -128,5 +149,5 @@
 
 </script>
 <style lang="">
-  
+
 </style>

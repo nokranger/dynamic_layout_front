@@ -75,6 +75,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/settingpage.vue')
   },
   {
+    path: '/settingpage2',
+    name: 'settingpage2',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/settingpage2.vue')
+  },
+  {
     path: '/alctxt',
     name: 'alctxt',
     // route level code-splitting

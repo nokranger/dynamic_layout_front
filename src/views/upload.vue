@@ -1,22 +1,23 @@
 <template>
   <div>
-    <div>Test Upload Excel file</div>
+    <div>
+      <h1>
+        Upload Excel file BC
+      </h1>
+    </div>
     <div style="font-weight: bold;font-size: 20px;margin: 10px;">
     </div>
     <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
     <br>
     <br>
     <div>
-      Download Data 
-    </div>
-    <div>
-      <button v-on:click="biasbc">Download Excel</button>
+      <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
     </div>
     <br>
     <br>
     <br>
     <div>
-      <button v-on:click="biasbc2">Detail Data</button>
+      <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
     </div>
     <br>
     <div>

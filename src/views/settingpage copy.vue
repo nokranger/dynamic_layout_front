@@ -13,12 +13,12 @@
                 track sign
               </div>
               <div>
-                <select name="cars" id="cars">
+                <b-select>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
-                </select>
+                </b-select>
               </div>
             </div>
             <div>
@@ -42,12 +42,12 @@
                 Format
               </div>
               <div>
-                <select name="cars" id="cars">
+                <b-select>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
-                </select>
+                </b-select>
               </div>
             </div>
             <div>
@@ -55,12 +55,12 @@
                 Conversion
               </div>
               <div>
-                <select name="cars" id="cars">
+                <b-select>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
-                </select>
+                </b-select>
               </div>
             </div>
             <div>
@@ -68,12 +68,12 @@
                 Order
               </div>
               <div>
-                <select name="cars" id="cars">
+                <b-select>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
                   <option value="1">1</option>
-                </select>
+                </b-select>
               </div>
             </div>
             <div>
