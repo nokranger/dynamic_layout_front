@@ -14,7 +14,7 @@
       Download Data
     </div> -->
     <div>
-      <b-button v-on:click="biasbc">Download Excel</b-button>
+      <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
     </div>
     <br>
     <br>
