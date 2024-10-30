@@ -1,42 +1,65 @@
 <template>
   <div>
-    <div>
-      <h1>
-        Upload Excel file Conversion
-      </h1>
-    </div>
-    <div style="font-weight: bold;font-size: 20px;margin: 10px;">
-    </div>
-    <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
-    <br>
-    <br>
-    <div>
-      <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div>
-      <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
-    </div>
-    <br>
-    <div>
-      <table>
-        <tr v-for="(items, index) in alldatabiasbc" :key="index">
-          <!-- <input v-model="items.idmsgno"></input> -->
-          <input v-model="items.idmsgno"></input>
-          <input v-model="items.msgno"></input>
-          <input v-model="items.conversioncharacter"></input>
-          <input v-model="items.description"></input>
-          <input v-model="items.mainpic"></input>
-          <input v-model="items.timeadd"></input>
-          <input v-model="items.og" v-on:keyup.enter="edittable(items)"></input>
-          <input v-model="items.updates"  v-on:keyup.enter="edittable(items)"></input>
-        </tr>
-      </table>
-    </div>
+    <b-container>
+      <b-row>
+        <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
+        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+          class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
+      <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
+        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+          class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
+        <div>
+          <h1>
+            Upload Excel file Conversion
+          </h1>
+        </div>
+        <div>
+          <br>
+          <b-row>
+            <b-col>
+              <div style="font-weight: bold;font-size: 20px;text-align: right;">
+                Model
+              </div>
+            </b-col>
+            <b-col>
+              <b-input v-model="model"></b-input>
+            </b-col>
+            <b-col></b-col>
+          </b-row>
+        </div>
+        <br>
+        <br>
+        <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
+        <br>
+        <br>
+        <div>
+          <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div>
+          <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
+        </div>
+        <br>
+        <div>
+          <table>
+            <tr v-for="(items, index) in alldatabiasbc" :key="index">
+              <!-- <input v-model="items.idmsgno"></input> -->
+              <input v-model="items.idmsgno"></input>
+              <input v-model="items.msgno"></input>
+              <input v-model="items.conversioncharacter"></input>
+              <input v-model="items.description"></input>
+              <input v-model="items.mainpic"></input>
+              <input v-model="items.timeadd"></input>
+              <input v-model="items.og" v-on:keyup.enter="edittable(items)"></input>
+              <input v-model="items.updates" v-on:keyup.enter="edittable(items)"></input>
+            </tr>
+          </table>
+        </div>
+      </b-row>
+    </b-container>
   </div>
-
 </template>
 <script>
 import * as XLSX from 'xlsx';
@@ -44,7 +67,12 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      alldatabiasbc: ''
+      alertStatus: 0,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+      alldatabiasbc: '',
+      model: ''
     }
   },
   methods: {
@@ -100,15 +128,20 @@ export default {
             mainpic: data.item5,
             timeadd: data.item6,
             og: data.item7,
-            updates: data.item8
+            updates: data.item8,
+            model: this.model
           }
         })
         this.jsondata2Tnos5 = jsonMapTnos5
         console.log(this.jsondata2Tnos5)
         axios.post('http://localhost:4000/conversiondias', this.jsondata2Tnos5).then(response => {
           console.log(response.data);
+          this.alertStatus = 1
+          this.dismissCountDown = this.dismissSecs
         }).catch(error => {
           console.error('Error fetching data:', error.message);
+          this.alertStatus = 3
+          this.dismissCountDown = this.dismissSecs
         });
       };
       reader.readAsBinaryString(file);
@@ -128,7 +161,8 @@ export default {
               "mainpic": data.mainpic,
               "timeadd": data.timeadd,
               "og": data.og,
-              "updates": data.updates
+              "updates": data.updates,
+              "model": data.model
             }
           })
           // console.log('resdataExcel', jsonMaps);
@@ -184,6 +218,9 @@ export default {
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     }
   }
 }

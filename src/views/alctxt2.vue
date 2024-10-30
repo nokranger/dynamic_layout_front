@@ -1,13 +1,6 @@
 <template>
   <div>
     <div>
-      <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
-      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-        class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
-    <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
-      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-        class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
-      <br>
       <h1>
         Upload ALC Excel file
       </h1>
@@ -16,21 +9,6 @@
     </div>
     <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
     <br>
-    <br>
-    <div>
-      <div>
-        <h3>
-          Model
-        </h3>
-      </div>
-      <b-row>
-        <b-col></b-col>
-        <b-col>
-          <b-input v-model="model"></b-input>
-        </b-col>
-        <b-col></b-col>
-      </b-row>
-    </div>
     <br>
     <div>
       <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
@@ -48,13 +26,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      alertStatus: 0,
-      dismissSecs: 5,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      alldatabiasbc: '',
-      model: '',
-      datas: []
+      alldatabiasbc: ''
     }
   },
   methods: {
@@ -105,22 +77,15 @@ export default {
         this.jsondata2Tnos5 = jsonMapTnos5
         console.log('C1-4', this.jsondata2Tnos5)
         axios.post('http://localhost:4000/alctxt', this.jsondata2Tnos5).then(response => {
-          this.alertStatus = 1
-          this.dismissCountDown = this.dismissSecs
           console.log(response.data);
         }).catch(error => {
           console.error('Error fetching data:', error.message);
-          this.alertStatus = 3
-          this.dismissCountDown = this.dismissSecs
         });
       };
       reader.readAsBinaryString(file);
     },
     biasbc() {
-      this.datas = {
-        model: this.model
-      }
-      axios.post('http://localhost:4000/allalctxt2', this.datas)
+      axios.get('http://localhost:4000/allalctxt')
         .then(response => {
           console.log('resdata', response.data.result);
           let dataexcel = response.data.result
@@ -453,9 +418,6 @@ export default {
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
-    },
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
     }
   }
 }

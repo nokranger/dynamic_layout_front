@@ -1,41 +1,65 @@
 <template>
   <div>
-    <div>
-      <h1>
-        Upload Excel file BC
-      </h1>
-    </div>
-    <div style="font-weight: bold;font-size: 20px;margin: 10px;">
-    </div>
-    <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
-    <br>
-    <br>
-    <div>
-      <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div>
-      <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
-    </div>
-    <br>
-    <div>
-      <table>
-        <tr v-for="(items, index) in alldatabiasbc" :key="index">
-          <!-- <input v-model="items.idmsgno"></input> -->
-          <input v-model="items.msgno"></input>
-          <input v-model="items.msgnodescr"></input>
-          <input v-model="items.lengths"></input>
-          <input v-model="items.sequence"></input>
-          <input v-model="items.fieldname"></input>
-          <input v-model="items.converttype"></input>
-          <input v-model="items.fieldupdate"></input>
-          <input v-model="items.alc_start_length" v-on:keyup.enter="edittable(items)"></input>
-          <input v-model="items.remark" v-on:keyup.enter="edittable(items)"></input>
-        </tr>
-      </table>
-    </div>
+    <b-container>
+      <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
+    <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
+      <b-row>
+        <div>
+          <h1>
+            Upload Excel file BC
+          </h1>
+        </div>
+        <div>
+          <br>
+          <b-row>
+            <b-col>
+              <div style="font-weight: bold;font-size: 20px;text-align: right;">
+                Model
+              </div>
+            </b-col>
+            <b-col>
+              <b-input v-model="model"></b-input>
+            </b-col>
+            <b-col></b-col>
+          </b-row>
+        </div>
+        <br>
+        <br>
+        <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
+        <br>
+        <br>
+        <div>
+          <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div>
+          <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
+        </div>
+        <br>
+        <div>
+          <table>
+            <tr v-for="(items, index) in alldatabiasbc" :key="index">
+              <!-- <input v-model="items.idmsgno"></input> -->
+              <input v-model="items.msgno"></input>
+              <input v-model="items.msgnodescr"></input>
+              <input v-model="items.lengths"></input>
+              <input v-model="items.sequence"></input>
+              <input v-model="items.fieldname"></input>
+              <input v-model="items.converttype"></input>
+              <input v-model="items.fieldupdate"></input>
+              <input v-model="items.alc_start_length" v-on:keyup.enter="edittable(items)"></input>
+              <input v-model="items.remark" v-on:keyup.enter="edittable(items)"></input>
+            </tr>
+          </table>
+        </div>
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>
@@ -44,7 +68,12 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      alldatabiasbc: ''
+      alertStatus: 0,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+      alldatabiasbc: '',
+      model: ''
     }
   },
   methods: {
@@ -102,15 +131,20 @@ export default {
             converttype: data.item7,
             fieldupdate: data.item8,
             alc_start_length: data.item9,
-            remark: data.item10
+            remark: data.item10,
+            model: this.model
           }
         })
         this.jsondata2Tnos5 = jsonMapTnos5
         console.log(this.jsondata2Tnos5)
         axios.post('http://localhost:4000/diasbc', this.jsondata2Tnos5).then(response => {
           console.log(response.data);
+          this.alertStatus = 1
+          this.dismissCountDown = this.dismissSecs
         }).catch(error => {
           console.error('Error fetching data:', error.message);
+          this.alertStatus = 3
+          this.dismissCountDown = this.dismissSecs
         });
       };
       reader.readAsBinaryString(file);
@@ -132,7 +166,8 @@ export default {
               "converttype": data.converttype,
               "fieldupdate": data.fieldupdate,
               "alc_start_length": data.alc_start_length,
-              "remark": data.remark
+              "remark": data.remark,
+              "model": data.model
             }
           })
           // console.log('resdataExcel', jsonMaps);
@@ -181,13 +216,16 @@ export default {
           console.error('Error fetching data:', error.message);
         });
     },
-    edittable (items) {
+    edittable(items) {
       console.log('edittable', items)
       axios.post('http://localhost:4000/updatebiasbc', items).then(response => {
-          console.log(response.data);
-        }).catch(error => {
-          console.error('Error fetching data:', error.message);
-        });
+        console.log(response.data);
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     }
   }
 }

@@ -13,12 +13,7 @@
                 track sign
               </div>
               <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
               </div>
             </div>
             <div>
@@ -42,12 +37,7 @@
                 Format
               </div>
               <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
               </div>
             </div>
             <div>
@@ -55,12 +45,7 @@
                 Conversion
               </div>
               <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
               </div>
             </div>
             <div>
@@ -68,12 +53,7 @@
                 Order
               </div>
               <div>
-                <select name="cars" id="cars">
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                  <option value="1">1</option>
-                </select>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
               </div>
             </div>
             <div>
@@ -81,7 +61,7 @@
                 Model
               </div>
               <div>
-                <b-input></b-input>
+                <b-input readonly></b-input>
               </div>
             </div>
             <div>
@@ -89,7 +69,7 @@
                 Version
               </div>
               <div>
-                <b-input></b-input>
+                <b-input readonly></b-input>
               </div>
             </div>
           </b-col>
@@ -99,14 +79,14 @@
         <b-row>
           <b-col>
             <b-button variant="outline-primary" style="margin: 5px;">Add</b-button>
-            <b-button variant="outline-danger" style="margin: 5px;">Copy to</b-button>
-            <b-button variant="outline-info" style="margin: 5px;">Exit</b-button>
+            <!-- <b-button variant="outline-danger" style="margin: 5px;">Copy to</b-button>
+            <b-button variant="outline-info" style="margin: 5px;">Exit</b-button> -->
           </b-col>
         </b-row>
         <br>
-        <b-row>
+        <!-- <b-row>
           <b-table striped hover :items="items"></b-table>
-        </b-row>
+        </b-row> -->
       </b-container>
     </div>
   </div>
@@ -120,8 +100,32 @@ export default {
         { TEST: 2, test: '', testt: '' },
         { TEST: 3, test: '', testt: '' },
         { TEST: 4, test: '', testt: '' }
+      ],
+      selected: null,
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' }
+      ],
+      options2: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' }
+      ],
+      options3: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' }
+      ],
+      options4: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' }
       ]
     }
+  },
+  methods: {
+    
   }
 }
 </script>
