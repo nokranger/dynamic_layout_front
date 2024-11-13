@@ -3,11 +3,11 @@
     <b-container>
       <b-row>
         <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
-        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-          class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
-      <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
-        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-          class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
+          @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+            class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
+        <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
+          @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+            class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
         <div>
           <h1>
             Upload Excel file Conversion
@@ -22,7 +22,7 @@
               </div>
             </b-col>
             <b-col>
-              <b-input v-model="model"></b-input>
+              <b-input v-model="model" placeholder="Type your model"></b-input>
             </b-col>
             <b-col></b-col>
           </b-row>
@@ -43,21 +43,28 @@
         </div>
         <br>
         <div>
-          <table>
-            <tr v-for="(items, index) in alldatabiasbc" :key="index">
-              <!-- <input v-model="items.idmsgno"></input> -->
-              <input v-model="items.idmsgno"></input>
-              <input v-model="items.msgno"></input>
-              <input v-model="items.conversioncharacter"></input>
-              <input v-model="items.description"></input>
-              <input v-model="items.mainpic"></input>
-              <input v-model="items.timeadd"></input>
-              <input v-model="items.og" v-on:keyup.enter="edittable(items)"></input>
-              <input v-model="items.updates" v-on:keyup.enter="edittable(items)"></input>
-            </tr>
-          </table>
         </div>
       </b-row>
+      <br>
+      <br>
+      <b-row>
+        <div style="text-align: left;">
+          <b-table hover :items="items" :head-variant="headVariant" :bordered="true" fixed="fixed"
+            :sticky-header="stickyHeader"></b-table>
+        </div>
+      </b-row>
+      <!-- <table>
+        <tr v-for="(items, index) in alldatabiasbc" :key="index">
+          <input v-model="items.idmsgno"></input>
+          <input v-model="items.msgno"></input>
+          <input v-model="items.conversioncharacter"></input>
+          <input v-model="items.description"></input>
+          <input v-model="items.mainpic"></input>
+          <input v-model="items.timeadd"></input>
+          <input v-model="items.og" v-on:keyup.enter="edittable(items)"></input>
+          <input v-model="items.updates" v-on:keyup.enter="edittable(items)"></input>
+        </tr>
+      </table> -->
     </b-container>
   </div>
 </template>
@@ -72,7 +79,11 @@ export default {
       dismissCountDown: 0,
       showDismissibleAlert: false,
       alldatabiasbc: '',
-      model: ''
+      model: '',
+      fields: [],
+      items: [],
+      headVariant: 'dark',
+      stickyHeader: true
     }
   },
   methods: {
@@ -151,7 +162,8 @@ export default {
         .then(response => {
           console.log('resdata', response.data.result);
           let dataexcel = response.data.result
-          this.alldatabiasbc = response.data.result
+          this.alldatabiasbc = response.data.result.filter(obj => obj.model === this.model);
+          // this.alldatabiasbc = response.data.result
           let jsonMaps = dataexcel.map((data, i) => {
             return {
               "idmsgno": data.msgno,
@@ -190,7 +202,8 @@ export default {
         .then(response => {
           // console.log('resdata', response.data.result);
           let dataexcel = response.data.result
-          this.alldatabiasbc = response.data.result
+          this.alldatabiasbc = response.data.result.filter(obj => obj.model === this.model);
+          this.items = this.alldatabiasbc
           console.log('detail', this.alldatabiasbc)
           // let jsonMaps = dataexcel.map((data, i) => {
           //   return {

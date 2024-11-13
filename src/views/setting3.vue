@@ -10,6 +10,14 @@
           <b-col>
             <div>
               <div>
+                Name Station
+              </div>
+              <div>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
+              </div>
+            </div>
+            <div>
+              <div>
                 Layout Level
               </div>
               <div>
@@ -57,22 +65,48 @@ export default {
       layout: [],
       layout_level: '',
       layout_part_number: '',
-      layout_quantity: ''
+      layout_quantity: '',
+      selected: null,
+      options: []
     }
+  },
+  mounted () {
+    axios.get('http://localhost:4000/allworkstation', this.layout).then(response => {
+        console.log(response.data);
+        // this.options = response.data.result
+        this.options = response.data.result.map((data, i) => {
+          return {
+            value: data.station_id,
+            text: data.name
+          }
+        })
+        this.options.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
   },
   methods: {
     addSetting() {
+      let result = this.options.find(obj => obj.value === this.selected);
+      console.log(result)
       this.layout = {
+        station_id: this.selected,
+        name_station: result.text,
         layout_level: this.layout_level,
         layout_part_number: this.layout_part_number,
         layout_quantity: this.layout_quantity
       }
-      console.log('setting', this.setting)
+      console.log('setting', this.layout)
       axios.post('http://localhost:4000/settinglayout', this.layout).then(response => {
         console.log(response.data);
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
+    },
+    test () {
+      let result = this.options.find(obj => obj.value === this.selected);
+      console.log('selectedresult', result.text)
+      console.log('selected', this.selected)
     }
   }
 }

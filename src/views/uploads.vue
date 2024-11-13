@@ -4,6 +4,10 @@
       <b-container>
         <b-tabs content-class="mt-3">
           <br>
+          <b-tab title="Main" active>
+            <br>
+            <mainPage></mainPage>
+          </b-tab>
           <b-tab title="BC" active>
             <br>
             <upload></upload>
@@ -46,6 +50,7 @@ import setting2 from '../views/settingpage2.vue';
 import setting3 from '../views/setting3.vue';
 import setting4 from '../views/setting4.vue';
 import textfile from '../views/alctxt.vue';
+import mainPage from '../views/dlayout.vue';
 export default {
   components: {
     upload,
@@ -54,7 +59,8 @@ export default {
     setting2,
     setting3,
     setting4,
-    textfile
+    textfile,
+    mainPage
   },
   data() {
     return {

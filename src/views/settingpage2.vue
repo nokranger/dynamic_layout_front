@@ -10,6 +10,16 @@
           <b-col>
             <div>
               <div>
+                Name Station
+              </div>
+              <div>
+                <div>
+                  <b-input v-model="nameStation" placeholder="Type Your Name Station"></b-input>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
                 Picking Sequence
               </div>
               <div>
@@ -85,11 +95,13 @@ export default {
         { value: 'Single', text: 'Single' },
         { value: 'Pairing', text: 'Pairing' }
       ],
+      nameStation: ''
     }
   },
   methods: {
     addSetting () {
       this.setting = {
+        namestation: this.nameStation,
         picking: this.selected,
         lot_size: this.selected2,
         condition: this.selected3

@@ -1,70 +1,40 @@
 <template>
   <div>
     <b-container>
-      <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
-        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-          class="alert-link">อัพโหลดข้อมูลสำเร็จ</a></b-alert>
-      <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
-        @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
-          class="alert-link">อัพโหลดข้อมูลล้มเหลว</a></b-alert>
       <b-row>
         <div>
-          <h1>
-            Upload Excel file BC
-          </h1>
           <!-- <div id="container"></div> -->
-        </div>
-        <div>
-          <br>
-          <b-row>
-            <b-col>
-              <div style="font-weight: bold;font-size: 20px;text-align: right;">
-                Model
-              </div>
-            </b-col>
-            <b-col>
-              <b-input v-model="model" placeholder="Type your model"></b-input>
-            </b-col>
-            <b-col></b-col>
-          </b-row>
-        </div>
-        <br>
-        <br>
-        <input type="file" ref="fileInput" @change="handleFileChangeTnos" />
-        <br>
-        <br>
-        <div>
-          <b-button variant="outline-success" v-on:click="biasbc">Download Excel</b-button>
-        </div>
-        <br>
-        <br>
-        <br>
-        <div>
-          <b-button variant="outline-info" v-on:click="biasbc2">Detail Data</b-button>
-        </div>
-        <!-- <br>
-        <div>
-          <table>
-            <tr v-for="(items, index) in alldatabiasbc" :key="index">
-              <input v-model="items.msgno"></input>
-              <input v-model="items.msgnodescr"></input>
-              <input v-model="items.lengths"></input>
-              <input v-model="items.sequence"></input>
-              <input v-model="items.fieldname"></input>
-              <input v-model="items.converttype"></input>
-              <input v-model="items.fieldupdate"></input>
-              <input v-model="items.alc_start_length" v-on:keyup.enter="edittable(items)"></input>
-              <input v-model="items.remark" v-on:keyup.enter="edittable(items)"></input>
-            </tr>
-          </table>
-        </div> -->
-      </b-row>
-      <br>
-      <br>
-      <b-row>
-        <div style="text-align: left;">
-          <b-table hover :items="items" :head-variant="headVariant" :bordered="true" fixed="fixed"
-            :sticky-header="stickyHeader"></b-table>
+          <!-- <b-button v-b-modal.modal-1>Launch demo modal</b-button> -->
+          <!-- <div v-for="(alldatabiasbcs, index) in alldatabiasbc" :key="index">
+            <b-modal :id="'modal-' + index" title="BootstrapVue">
+              {{ index }}
+              <p class="my-4">Hello from modal!</p>
+            </b-modal>
+          </div> -->
+          <b-button v-on:click="reloadWork" variant="outline-primary">Reload</b-button>
+          <div
+            style="border: 2px solid gray;border-radius: 10px;box-shadow: 5px 5px 5px #888888;margin: 20px;width: 100%;height: 100%">
+            <div v-for="(lworks, index) in lwork" :key="index"
+              style="position: static;display: inline-block;border: 2px solid gray;border-radius: 10px;height: 450px;width: 250px;box-shadow: 5px 5px 5px #888888;margin: 10px;"
+              v-b-modal="'modal-shelf' + index" v-on:click="loadLayout(lworks)">
+              <div v-on:click="loadLayout(index)">Name: {{ lworks.name }}</div>
+              <div v-on:click="loadLayout(index)">Picking Sequence: {{ lworks.picking_sequence }}</div>
+              <div v-on:click="loadLayout(index)">Lot Size{{ lworks.lot_size }}</div>
+              <div v-on:click="loadLayout(index)">Condition{{ lworks.condition }}</div>
+              <div >BC Model: {{ bc[0].model }}</div>
+              <b-modal :id="'modal-shelf' + index" :title="lworks.name" size="lg" hide-footer hide-header>
+                <div v-for="n in llevel" :key="n">
+                  <div v-for="(llayouts, index) in llayout" :key="index"
+                    style="position: static;display: inline-block;border: 2px solid gray;border-radius: 10px;height: 450px;width: 250px;box-shadow: 5px 5px 5px #888888;margin: 10px;">
+                    <div>Level: {{ n }}</div>
+                    <div>Name Station: {{ llayouts.name_station }}</div>
+                    <div>Layout Part Number: {{ llayouts.layout_part_number }}</div>
+                    <div>Layout Quantity: {{ llayouts.layout_quantity }}</div>
+                  </div>
+                </div>
+              </b-modal>
+            </div>
+          </div>
         </div>
       </b-row>
     </b-container>
@@ -82,38 +52,82 @@ export default {
       showDismissibleAlert: false,
       alldatabiasbc: '',
       model: '',
-      fields: [],
-      items: [],
-      headVariant: 'dark',
-      stickyHeader: true
+      lmodel: '',
+      lwork: '',
+      llayout: '',
+      llevel: 0,
+      bc: '',
+      conversion: ''
     }
   },
-  mounted() {
-    // let count = 5;
+  async mounted() {
+    // await axios.get('http://localhost:4000/allworkstation')
+    //   .then(response => {
+    //     this.alldatabiasbc = response.data.result
+    //     console.log('detail', this.alldatabiasbc.length)
+    //   })
+    //   .catch(error => {
+    //     console.error('Error fetching data:', error.message);
+    //   });
+    // let count = 4;
     // // Change this to any number of divs you want 
     // let container = document.getElementById('container');
-    // for (let i = 1; i <= count; i++) {
+    // for (let i = 0; i <= this.alldatabiasbc.length; i++) {
     //   let div = document.createElement('div');
-    //   div.textContent = 'Div ' + i;
+    //   div.innerHTML = 'Name Station: ' + this.alldatabiasbc[i].name + '<br>' + 'Sequence: ';
     //   div.style.border = '1px solid black';
     //   div.style.padding = '10px';
     //   div.style.margin = '5px';
-    //   let input = document.createElement('input');
-    //   input.type = 'text';
-    //   input.placeholder = 'Enter text here';
-    //   input.id = 'input' + i;
+    //   // let input = document.createElement('input');
+    //   // input.type = 'text';
+    //   // input.placeholder = 'Enter text here';
+    //   // input.id = 'input' + i;
     //   let button = document.createElement('button')
     //   button.id = 'button' + i
     //   button.textContent = 'click me'
-    //   div.appendChild(input);
+    //   // div.appendChild(input);
     //   div.appendChild(button);
     //   container.appendChild(div);
     //   button.onclick = function () {
-    //     console.log('value input', input.value)
+
+    //     // console.log('value input', input.value)
     //   };
     // }
   },
   methods: {
+    async reloadWork() {
+      await axios.get('http://localhost:4000/allworkstation')
+        .then(response => {
+          this.lwork = response.data.result
+          console.log('detail', this.lwork.length)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.message);
+        });
+        await axios.get('http://localhost:4000/allmodel')
+        .then(response => {
+          this.bc = response.data.result
+          console.log('detail', this.bc[0].model)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.message);
+        });
+    },
+    async loadLayout(lworks) {
+      console.log('loadLayout', lworks)
+      await axios.get('http://localhost:4000/alllayout')
+        .then(response => {
+          this.llayout = response.data.result
+          this.llayout = this.llayout.filter((i) => {
+            return i.station_id == lworks.station_id
+          })
+          console.log('detail', typeof (this.llayout[0].layout_level))
+          this.llevel = Number(this.llayout[0].layout_level)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.message);
+        });
+    },
     handleFileChangeTnos(event) {
       console.log('tnos')
       const file = event.target.files[0];
@@ -234,24 +248,8 @@ export default {
         .then(response => {
           // console.log('resdata', response.data.result);
           let dataexcel = response.data.result
-          // this.alldatabiasbc = response.data.result
-          this.alldatabiasbc = response.data.result.filter(obj => obj.model === this.model);
-          this.items = this.alldatabiasbc
+          this.alldatabiasbc = response.data.result
           console.log('detail', this.alldatabiasbc)
-          // let jsonMaps = dataexcel.map((data, i) => {
-          //   return {
-          //     "idmsgno": data.idmsgno,
-          //     "msgno": data.msgno,
-          //     "msgnodescr": data.msgnodescr,
-          //     "lengths": data.lengths,
-          //     "sequence": data.sequence,
-          //     "fieldname": data.fieldname,
-          //     "converttype": data.converttype,
-          //     "fieldupdate": data.fieldupdate,
-          //     "alc_start_length": data.alc_start_length,
-          //     "remark": data.remark
-          //   }
-          // })
         })
         .catch(error => {
           console.error('Error fetching data:', error.message);

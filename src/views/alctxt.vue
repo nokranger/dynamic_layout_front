@@ -26,7 +26,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-input v-model="model"></b-input>
+          <b-input v-model="model" placeholder="Type Model"></b-input>
         </b-col>
         <b-col></b-col>
       </b-row>
