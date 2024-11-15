@@ -8,7 +8,7 @@
             <br>
             <mainPage></mainPage>
           </b-tab>
-          <b-tab title="BC" active>
+          <b-tab title="BC">
             <br>
             <upload></upload>
           </b-tab>
@@ -19,15 +19,15 @@
           <b-tab title="Setting Page">
             <br>
             <b-tabs content-class="mt-3">
-              <b-tab title="Model" active>
+              <b-tab title="Model">
                 <setting></setting>
               </b-tab>
               <b-tab title="Set Working Station">
                 <setting2></setting2>
               </b-tab>
-              <b-tab title="Set Layout">
+              <!-- <b-tab title="Set Layout">
                 <setting3></setting3>
-              </b-tab>
+              </b-tab> -->
               <b-tab title="Set Picture">
                 <setting4></setting4>
               </b-tab>

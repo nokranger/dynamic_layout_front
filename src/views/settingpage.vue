@@ -61,7 +61,10 @@
                 BC Format
               </div>
               <div>
-                <b-input v-model="model" placeholder="Type BC Format"></b-input>
+                <!-- <b-input v-model="model" placeholder="Type BC Format"></b-input> -->
+                <div>
+                  <b-form-select v-model="selectedm" :options="model"></b-form-select>
+                </div>
               </div>
             </div>
             <div>
@@ -69,7 +72,10 @@
                 Conversion
               </div>
               <div>
-                <b-input v-model="conversion" placeholder="Type Conversion"></b-input>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <!-- <b-input v-model="conversion" placeholder="Type Conversion"></b-input> -->
               </div>
             </div>
             <div>
@@ -96,13 +102,13 @@
         <b-row>
           <b-col></b-col>
           <b-col>
-            <div>
+            <!-- <div>
               <b-form-select v-model="selected" :options="options"></b-form-select>
-            </div>
+            </div> -->
           </b-col>
           <b-col>
             <div style="text-align: left;">
-              <b-button v-on:click="loadModel (selected)" variant="outline-success">Load Model</b-button>
+              <b-button v-on:click="loadModel()" variant="outline-success">Load Model</b-button>
             </div>
           </b-col>
         </b-row>
@@ -110,7 +116,8 @@
         <br>
         <b-row>
           <div style="text-align: left;">
-              <b-table hover :items="items" :head-variant="headVariant" :bordered="true" fixed="fixed" :sticky-header="stickyHeader"></b-table>
+            <b-table hover :items="items" :head-variant="headVariant" :bordered="true" fixed="fixed"
+              :sticky-header="stickyHeader"></b-table>
           </div>
         </b-row>
         <br>
@@ -127,10 +134,11 @@ export default {
   data() {
     return {
       data: [],
-      model: '',
-      conversion: '',
+      model: [],
+      conversion: [],
       mversion: '',
-      selected: null,
+      selectedm: null,
+      selectedc: null,
       options: [],
       fields: [],
       items: [],
@@ -138,17 +146,34 @@ export default {
       stickyHeader: true
     }
   },
-  mounted() {
-    axios.get('http://localhost:4000/allmodel', this.layout).then(response => {
+  async mounted() {
+    await axios.get('http://localhost:4000/alldiasbc2').then(response => {
       console.log(response.data);
       // this.options = response.data.result
-      this.options = response.data.result.map((data, i) => {
+      // this.model = response.data.result
+      this.model = response.data.result.map((data, i) => {
         return {
           value: data.model,
-          text: data.model + ' ' + data.version
+          text: data.model
         }
       })
-      this.options.push({ "value": null, "text": "Please select an option" })
+      this.model.push({ "value": null, "text": "Please select an option" })
+      console.log('gggg=======', this.model)
+      // this.model.push({ "value": null, "text": "Please select an option" })
+    }).catch(error => {
+      console.error('Error fetching data:', error.message);
+    });
+    await axios.get('http://localhost:4000/allconversion2').then(response => {
+      console.log(response.data);
+      // this.options = response.data.result
+      // this.conversion = response.data.result
+      this.conversion = response.data.result.map((data, i) => {
+        return {
+          value: data.model,
+          text: data.model
+        }
+      })
+      this.conversion.push({ "value": null, "text": "Please select an option" })
     }).catch(error => {
       console.error('Error fetching data:', error.message);
     });
@@ -158,8 +183,8 @@ export default {
       // let result = this.options.find(obj => obj.value === this.selected);
       // console.log(result)
       this.data = {
-        model: this.model,
-        conversion: this.conversion,
+        model: this.selectedm,
+        conversion: this.selectedc,
         mversion: this.mversion
       }
       console.log('setting', this.data)
@@ -169,14 +194,20 @@ export default {
         console.error('Error fetching data:', error.message);
       });
     },
-    loadModel (select) {
-      let data = {
-        model: select
-      }
-      console.log('Load Model', select)
-      axios.post('http://localhost:4000/alldiasbc2', data).then(response => {
+    loadModel(select) {
+      // let data = {
+      //   model: select
+      // }
+      // console.log('Load Model', select)
+      axios.get('http://localhost:4000/allmodel').then(response => {
         console.log(response.data);
-        this.items = response.data.result
+        this.items = response.data.result.map((data, i) => {
+          return {
+            Model: data.model,
+            Conversion: data.model,
+            Version: data.version
+          }
+        })
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
