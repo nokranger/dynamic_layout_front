@@ -7,15 +7,8 @@
           <b-col>
             <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="index">
               <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'top' + index"
-                v-b-modal="'modal-shelf-top' + index" v-on:click="showdetail()"></div>
+                v-b-modal="'modal-shelf-top' + index" v-on:click="showdetail('div-shelf-top' + index)"></div>
               <b-modal :id="'modal-shelf-top' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
-                <!-- name: '',
-                name_work: '',
-                model: '',
-                subsmg: '',
-                conversion_char: '',
-                desc: '',
-                layout_location: '' -->
                 <div>
                   Name Station
                 </div>
@@ -42,68 +35,523 @@
                   <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
                 </div>
                 <br>
-                <div :id="'div-shelf-top' + index">
-                  <div>Name Station: {{ sname_work }}</div>
-                  <div>Model: {{ smodel }}</div>
-                  <div>Sub Message: {{ ssubmsg }}</div>
-                  <div>Conversion Character: {{ sconversion_char }}</div>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <br>
+                <div v-for="(databox, index) in showboxdetail2" :key="index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
-                  v-on:click="addBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)">Add</b-button>
+                  v-on:click="addBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
+                  style="margin: 10px;">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
+                  style="margin: 10px;">Delete</b-button>
               </b-modal>
             </div>
             <br>
             <br>
             <br>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top2, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;" :id="'top2' + index"
-                v-on:click="edittable('top2' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'B' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'topp' + index"
+                v-b-modal="'modal-shelf-topp' + index" v-on:click="showdetail('div-shelf-topp' + index)"></div>
+              <b-modal :id="'modal-shelf-topp' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'BB' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('topp' + index, 'modal-shelf-topp' + index, 'div-shelf-topp' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('topp' + index, 'modal-shelf-topp' + index, 'div-shelf-topp' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('topp' + index, 'modal-shelf-topp' + index, 'div-shelf-topp' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top3, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;" :id="'top3' + index"
-                v-on:click="edittable('top3' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'C' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toppp' + index"
+                v-b-modal="'modal-shelf-toppp' + index" v-on:click="showdetail('div-shelf-toppp' + index)"></div>
+              <b-modal :id="'modal-shelf-toppp' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'CC' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toppp' + index, 'modal-shelf-toppp' + index, 'div-shelf-toppp' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toppp' + index, 'modal-shelf-toppp' + index, 'div-shelf-toppp' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toppp' + index, 'modal-shelf-toppp' + index, 'div-shelf-toppp' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
             <br>
             <br>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(bot, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;" :id="'bot' + index"
-                v-on:click="edittable('bot' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'D' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'topppp' + index"
+                v-b-modal="'modal-shelf-topppp' + index" v-on:click="showdetail('div-shelf-topppp' + index)"></div>
+              <b-modal :id="'modal-shelf-topppp' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'DD' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('topppp' + index, 'modal-shelf-topppp' + index, 'div-shelf-topppp' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('topppp' + index, 'modal-shelf-topppp' + index, 'div-shelf-topppp' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('topppp' + index, 'modal-shelf-topppp' + index, 'div-shelf-topppp' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(bot2, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;" :id="'bot2' + index"
-                v-on:click="edittable('bot2' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'E' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toppppp' + index"
+                v-b-modal="'modal-shelf-toppppp' + index" v-on:click="showdetail('div-shelf-toppppp' + index)"></div>
+              <b-modal :id="'modal-shelf-toppppp' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'EE' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toppppp' + index, 'modal-shelf-toppppp' + index, 'div-shelf-toppppp' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toppppp' + index, 'modal-shelf-toppppp' + index, 'div-shelf-toppppp' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toppppp' + index, 'modal-shelf-toppppp' + index, 'div-shelf-toppppp' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
           </b-col>
           <b-col>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'F' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'topr' + index"
+                v-b-modal="'modal-shelf-topr' + index" v-on:click="showdetail('div-shelf-topr' + index)"></div>
+              <b-modal :id="'modal-shelf-topr' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'FF' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('topr' + index, 'modal-shelf-topr' + index, 'div-shelf-topr' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('topr' + index, 'modal-shelf-topr' + index, 'div-shelf-topr' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('topr' + index, 'modal-shelf-topr' + index, 'div-shelf-topr' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'G' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toprr' + index"
+                v-b-modal="'modal-shelf-toprr' + index" v-on:click="showdetail('div-shelf-toprr' + index)"></div>
+              <b-modal :id="'modal-shelf-toprr' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'GG' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toprr' + index, 'modal-shelf-toprr' + index, 'div-shelf-toprr' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toprr' + index, 'modal-shelf-toprr' + index, 'div-shelf-toprr' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toprr' + index, 'modal-shelf-toprr' + index, 'div-shelf-toprr' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'H' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toprrr' + index"
+                v-b-modal="'modal-shelf-toprrr' + index" v-on:click="showdetail('div-shelf-toprrr' + index)"></div>
+              <b-modal :id="'modal-shelf-toprrr' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'HH' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toprrr' + index, 'modal-shelf-toprrr' + index, 'div-shelf-toprrr' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toprrr' + index, 'modal-shelf-toprrr' + index, 'div-shelf-toprrr' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toprrr' + index, 'modal-shelf-toprrr' + index, 'div-shelf-toprrr' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 4" :key="'I' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toprrrr' + index"
+                v-b-modal="'modal-shelf-toprrrr' + index" v-on:click="showdetail('div-shelf-toprrrr' + index)"></div>
+              <b-modal :id="'modal-shelf-toprrrr' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'II' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toprrrr' + index, 'modal-shelf-toprrrr' + index, 'div-shelf-toprrrr' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toprrrr' + index, 'modal-shelf-toprrrr' + index, 'div-shelf-toprrrr' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toprrrr' + index, 'modal-shelf-toprrrr' + index, 'div-shelf-toprrrr' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <br>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 2" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 2" :key="'J' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 10px;" :id="'toprrrrr' + index"
+                v-b-modal="'modal-shelf-toprrrrr' + index" v-on:click="showdetail('div-shelf-toprrrrr' + index)"></div>
+              <b-modal :id="'modal-shelf-toprrrrr' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'JJ' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('toprrrrr' + index, 'modal-shelf-toprrrrr' + index, 'div-shelf-toprrrrr' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('toprrrrr' + index, 'modal-shelf-toprrrrr' + index, 'div-shelf-toprrrrr' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('toprrrrr' + index, 'modal-shelf-toprrrrr' + index, 'div-shelf-toprrrrr' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
             <div align="left" style="display: inline-block;" v-for="(top, index) in 2" :key="index">
               <div style="width: 70px;height: 70px" :id="'top' + index"></div>
@@ -112,9 +560,58 @@
         </b-row>
         <b-row>
           <b-col>
-            <div align="left" style="display: inline-block;" v-for="(top, index) in 10" :key="index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 70px;" :id="'top' + index"
-                v-on:click="edittable('top' + index)"></div>
+            <div align="left" style="display: inline-block;" v-for="(top, index) in 10" :key="'K' + index">
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 70px;" :id="'bot' + index"
+                v-b-modal="'modal-shelf-bot' + index" v-on:click="showdetail('div-shelf-bot' + index)"></div>
+              <b-modal :id="'modal-shelf-bot' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
+                <div>
+                  Name Station
+                </div>
+                <div>
+                  <b-form-select v-model="selecteds" :options="stationO"></b-form-select>
+                </div>
+                <div>
+                  Model
+                </div>
+                <div>
+                  <b-form-select v-model="selectedm" :options="model" v-on:change="selectsubmsgno()"></b-form-select>
+                </div>
+                <div>
+                  Sub message No
+                </div>
+                <div>
+                  <b-form-select v-model="selectedmsg" :options="submsgno"
+                    v-on:change="selectconversion()"></b-form-select>
+                </div>
+                <div>
+                  Conversion Character
+                </div>
+                <div>
+                  <b-form-select v-model="selectedc" :options="conversion"></b-form-select>
+                </div>
+                <br>
+                <div>
+                  Priority
+                </div>
+                <div>
+                  <b-input style="width: 30%;" v-model="priority"></b-input>
+                </div>
+                <div v-for="(databox, index) in showboxdetail2" :key="'KK' + index">
+                  <div>Name Station: {{ databox.name }}</div>
+                  <div>Model: {{ databox.model }}</div>
+                  <div>Sub Message: {{ databox.submsg }}</div>
+                  <div>Conversion Character: {{ databox.conversion_char }}</div>
+                </div>
+                <br>
+                <b-button variant="outline-primary"
+                  v-on:click="addBoxstation('bot' + index, 'modal-shelf-bot' + index, 'div-shelf-bot' + index)">Add</b-button>
+                <b-button variant="outline-warning"
+                  v-on:click="editBoxstation('bot' + index, 'modal-shelf-bot' + index, 'div-shelf-bot' + index)"
+                  style="margin: 10px;">Edit</b-button>
+                <b-button variant="outline-danger"
+                  v-on:click="delBoxstation('bot' + index, 'modal-shelf-bot' + index, 'div-shelf-bot' + index)"
+                  style="margin: 10px;">Delete</b-button>
+              </b-modal>
             </div>
           </b-col>
         </b-row>
@@ -156,6 +653,8 @@ export default {
       ssubmsg: '',
       sconversion_char: '',
       showboxdetail2: '',
+      showbox: '',
+      priority: '',
     }
   },
   async mounted() {
@@ -163,7 +662,7 @@ export default {
       .then(response => {
         this.stationO = response.data.result.map((data, i) => {
           return {
-            value: data.name,
+            value: data.station_id,
             text: data.name
           }
         })
@@ -188,22 +687,13 @@ export default {
     }).catch(error => {
       console.error('Error fetching data:', error.message);
     });
-    await axios.get('http://localhost:4000/allboxstation').then(response => {
+    await axios.get('http://localhost:4000/allboxstation3').then(response => {
       console.log('getid', response.data.result);
       // console.log('getidModal', document.getElementById('modal-shelf-top1'));
       this.showboxdetail = response.data.result
       this.showboxdetail = this.showboxdetail.filter((i) => {
-        console.log('fasfasf', i.show_detail)
-        console.log('fasfasfsssss', document.getElementById(i.show_detail))
-        // console.log('fasfasf', document.getElementById(i.show_detail).id)
         let divboxid = document.getElementById(i.layout_location)
         divboxid.style.backgroundColor = 'lightblue'
-        // let detailboxid = document.getElementById(i.show_detail)
-        // detailboxid.style.backgroundColor = 'lightblue'
-        // detailboxid.innerHTML = `<br><div>Name Station: {{ sname_work }}</div><br>
-        //           <div>Model: {{ sModel }}</div><br>
-        //           <div>Sub Message: {{ ssubmsg }}</div><br>
-        //           <div>Conversion Character: {{ sconversion_char }}</div>`
         return i.layout_location == document.getElementById(i.layout_location).id
       })
       console.log('getid=====', this.showboxdetail);
@@ -215,13 +705,14 @@ export default {
     addBoxstation(id1, id2, id3) {
       this.boxstation = {
         name: '',
-        // station_id: BIconHandThumbsDown,
+        station_id: this.selecteds,
         name_work: this.selecteds,
         model: this.selectedm,
         submsg: this.selectedmsg,
         conversion_char: this.selectedc,
         layout_location: id1,
-        show_detail: id3
+        show_detail: id3,
+        priority: this.priority
       }
       console.log('locationBox=========', this.boxstation)
       axios.post('http://localhost:4000/boxstation', this.boxstation)
@@ -233,26 +724,43 @@ export default {
           console.error('Error fetching data:', error.message);
         });
     },
-    async showdetail() {
-      await axios.get('http://localhost:4000/allboxstation').then(response => {
-        console.log('getid', response.data.result);
-        // console.log('getidModal', document.getElementById('modal-shelf-top1'));
+    async showdetail(id) {
+      this.showbox = {
+        show_detail: id
+      }
+      await axios.post('http://localhost:4000/allboxstation4', this.showbox).then(response => {
         this.showboxdetail2 = response.data.result
-        this.showboxdetail2 = this.showboxdetail2.filter((i) => {
-          // let detailboxid = document.getElementById(i.show_detail)
-          // detailboxid.style.backgroundColor = 'lightblue'
-          // console.log('conver====', i.conversion_char)
-          // console.log('conver====S', i.show_detail)
-          // console.log('conver====D', document.getElementById(i.show_detail).id)
-          // if (i.show_detail == document.getElementById(i.show_detail).id) {
-            this.sname_work = i.name_work,
-            this.smodel = i.model,
-            this.ssubmsg = i.submsg,
-            this.sconversion_char = i.conversion_char
-          // }
-          return i.show_detail == document.getElementById(i.show_detail).id && i.layout_location == document.getElementById(i.layout_location).id
-        })
         console.log('getid=====2', this.showboxdetail2);
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    async editBoxstation(id1, id2, id3) {
+      this.boxstation = {
+        name: '',
+        station_id: this.selecteds,
+        name_work: this.selecteds,
+        model: this.selectedm,
+        submsg: this.selectedmsg,
+        conversion_char: this.selectedc,
+        layout_location: id1,
+        show_detail: id3,
+        priority: this.priority
+      }
+      await axios.post('http://localhost:4000/editboxstation', this.boxstation).then(response => {
+        console.log('Edit');
+        this.showboxdetail2 = response.data.result
+        console.log('getid=====Edit', this.showboxdetail2);
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    async delBoxstation(id1, id2, id3) {
+      this.showbox = {
+        layout_location: id1
+      }
+      await axios.post('http://localhost:4000/deleteboxstation', this.showbox).then(response => {
+        console.log('Deleted');
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
