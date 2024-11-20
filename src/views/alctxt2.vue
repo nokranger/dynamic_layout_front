@@ -185,7 +185,7 @@ export default {
               absorber_as_rh: data.alctxt.slice(226, 231),
               absorber_as_kh: data.alctxt.slice(231, 236),
               fr_coil_rh: data.alctxt.slice(236, 243),
-              fr_foil_lh: data.alctxt.slice(243, 250),
+              fr_coil_lh: data.alctxt.slice(243, 250),
               bar_stablizer: data.alctxt.slice(250, 253),
               spare_24: data.alctxt.slice(253, 256),
               shaft_assy: data.alctxt.slice(256, 259),
