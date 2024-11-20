@@ -9,7 +9,7 @@
           <b-col></b-col>
           <b-col>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Setting Part for picture
               </div>
               <div>

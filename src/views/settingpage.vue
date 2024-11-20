@@ -57,7 +57,7 @@
               </div>
             </div> -->
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 BC Format
               </div>
               <div>
@@ -67,8 +67,9 @@
                 </div>
               </div>
             </div>
+            <br>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Conversion
               </div>
               <div>
@@ -78,8 +79,9 @@
                 <!-- <b-input v-model="conversion" placeholder="Type Conversion"></b-input> -->
               </div>
             </div>
+            <br>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Version
               </div>
               <div>

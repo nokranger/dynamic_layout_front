@@ -9,6 +9,7 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +18,7 @@
   color: #2c3e50;
   background-color: #dbdbdb;
   height: 2000px;
+  font-family: 'Noto Serif', sans-serif;
 }
 
 nav {

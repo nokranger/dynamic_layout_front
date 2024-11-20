@@ -9,7 +9,7 @@
           <b-col></b-col>
           <b-col>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Name Station
               </div>
               <div>
@@ -18,8 +18,9 @@
                 </div>
               </div>
             </div>
+            <br>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Picking Sequence
               </div>
               <div>
@@ -28,8 +29,9 @@
                 </div>
               </div>
             </div>
+            <br>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Lot Size
               </div>
               <div>
@@ -38,8 +40,9 @@
                 </div>
               </div>
             </div>
+            <br>
             <div>
-              <div>
+              <div style="font-weight: bold;">
                 Condition
               </div>
               <div>
