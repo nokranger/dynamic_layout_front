@@ -1,5 +1,11 @@
 <template>
   <div>
+    <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">เพิ่มข้อมูลสำเร็จ</a></b-alert>
+    <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">เพิ่มข้อมูลล้มเหลว</a></b-alert>
     <h1>
       Setting page Working Station
     </h1>
@@ -98,11 +104,15 @@ export default {
         { value: 'Single', text: 'Single' },
         { value: 'Pairing', text: 'Pairing' }
       ],
-      nameStation: ''
+      nameStation: '',
+      alertStatus: 0,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
     }
   },
   methods: {
-    addSetting () {
+    addSetting() {
       this.setting = {
         namestation: this.nameStation,
         picking: this.selected,
@@ -111,10 +121,19 @@ export default {
       }
       console.log('setting', this.setting)
       axios.post('http://localhost:4000/settingworking', this.setting).then(response => {
-          console.log(response.data);
-        }).catch(error => {
-          console.error('Error fetching data:', error.message);
-        });
+        console.log(response.data);
+        this.alertStatus = 1
+        this.dismissCountDown = this.dismissSecs
+        this.nameStation = ''
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+        this.alertStatus = 3
+        this.dismissCountDown = this.dismissSecs
+        this.nameStation = ''
+      });
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     }
   }
 }

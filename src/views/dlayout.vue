@@ -46,10 +46,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -108,10 +112,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'BB' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -166,10 +174,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'CC' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -227,10 +239,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'DD' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -285,10 +301,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'EE' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -344,10 +364,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'FF' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -402,10 +426,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'GG' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -460,10 +488,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'HH' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -518,10 +550,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'II' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -576,10 +612,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'JJ' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -640,10 +680,14 @@
                 </div>
                 <br>
                 <div v-for="(databox, index) in showboxdetail2" :key="'KK' + index">
-                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name }}</label></div>
-                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label></div>
-                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg }}</label></div>
-                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{ databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
+                      }}</label></div>
+                  <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
+                  </div>
+                  <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
+                      }}</label></div>
+                  <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
+                    databox.conversion_char }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -697,53 +741,11 @@ export default {
       sconversion_char: '',
       showboxdetail2: '',
       showbox: '',
-      priority: '',
+      priority: ''
     }
   },
   async mounted() {
-    await axios.get('http://localhost:4000/allstation')
-      .then(response => {
-        this.stationO = response.data.result
-        this.stationO = response.data.result.map((data, i) => {
-          return {
-            value: data.station_id,
-            text: data.name
-          }
-        })
-        this.stationO.push({ "value": null, "text": "Please select an option" })
-        // console.log('detail=====', this.stationO)
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error.message);
-      });
-    await axios.get('http://localhost:4000/alldiasbc2').then(response => {
-      console.log(response.data);
-      // this.options = response.data.result
-      // this.model = response.data.result
-      this.model = response.data.result.map((data, i) => {
-        return {
-          value: data.model,
-          text: data.model
-        }
-      })
-      this.model.push({ "value": null, "text": "Please select an option" })
-      // this.model.push({ "value": null, "text": "Please select an option" })
-    }).catch(error => {
-      console.error('Error fetching data:', error.message);
-    });
-    await axios.get('http://localhost:4000/allboxstation3').then(response => {
-      // console.log('getid', response.data.result);
-      // console.log('getidModal', document.getElementById('modal-shelf-top1'));
-      this.showboxdetail = response.data.result
-      this.showboxdetail = this.showboxdetail.filter((i) => {
-        let divboxid = document.getElementById(i.layout_location)
-        divboxid.style.backgroundColor = 'lightblue'
-        return i.layout_location == document.getElementById(i.layout_location).id
-      })
-      // console.log('getid=====', this.showboxdetail);
-    }).catch(error => {
-      console.error('Error fetching data:', error.message);
-    });
+    await this.loadlocation()
   },
   methods: {
     addBoxstation(id1, id2, id3) {
@@ -796,6 +798,7 @@ export default {
         console.log('Edit');
         this.showboxdetail2 = response.data.result
         this.$bvModal.hide(id2)
+        this.loadlocation()
         // console.log('getid=====Edit', this.showboxdetail2);
       }).catch(error => {
         console.error('Error fetching data:', error.message);
@@ -808,6 +811,7 @@ export default {
       await axios.post('http://localhost:4000/deleteboxstation', this.showbox).then(response => {
         console.log('Deleted');
         this.$bvModal.hide(id2)
+        this.loadlocation()
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
@@ -870,6 +874,51 @@ export default {
         .catch(error => {
           console.error('Error fetching data:', error.message);
         });
+    },
+    async loadlocation() {
+      await axios.get('http://localhost:4000/allstation')
+        .then(response => {
+          this.stationO = response.data.result
+          this.stationO = response.data.result.map((data, i) => {
+            return {
+              value: data.station_id,
+              text: data.name
+            }
+          })
+          this.stationO.push({ "value": null, "text": "Please select an option" })
+          // console.log('detail=====', this.stationO)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.message);
+        });
+      await axios.get('http://localhost:4000/alldiasbc2').then(response => {
+        console.log(response.data);
+        // this.options = response.data.result
+        // this.model = response.data.result
+        this.model = response.data.result.map((data, i) => {
+          return {
+            value: data.model,
+            text: data.model
+          }
+        })
+        this.model.push({ "value": null, "text": "Please select an option" })
+        // this.model.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+      await axios.get('http://localhost:4000/allboxstation3').then(response => {
+        // console.log('getid', response.data.result);
+        // console.log('getidModal', document.getElementById('modal-shelf-top1'));
+        this.showboxdetail = response.data.result
+        this.showboxdetail = this.showboxdetail.filter((i) => {
+          let divboxid = document.getElementById(i.layout_location)
+          divboxid.style.backgroundColor = 'lightblue'
+          return i.layout_location == document.getElementById(i.layout_location).id
+        })
+        // console.log('getid=====', this.showboxdetail);
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
     },
     edittable(items) {
       // console.log('tei=======', items)

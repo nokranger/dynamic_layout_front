@@ -28,15 +28,15 @@
               <!-- <b-tab title="Set Layout">
                 <setting3></setting3>
               </b-tab> -->
-              <b-tab title="Set Picture">
+              <!-- <b-tab title="Set Picture">
                 <setting4></setting4>
-              </b-tab>
+              </b-tab> -->
             </b-tabs>
           </b-tab>
-          <b-tab title="Text File">
+          <!-- <b-tab title="Text File">
             <br>
             <textfile></textfile>
-          </b-tab>
+          </b-tab> -->
         </b-tabs>
       </b-container>
     </div>

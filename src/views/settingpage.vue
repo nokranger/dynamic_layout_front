@@ -1,5 +1,11 @@
 <template>
   <div>
+    <b-alert v-if="alertStatus === 1" show variant="success" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">เพิ่มข้อมูลสำเร็จ</a></b-alert>
+    <b-alert v-if="alertStatus === 3" show variant="danger" :show="dismissCountDown" fade
+      @dismiss-count-down="countDownChanged"><a href="#" style="text-decoration:none"
+        class="alert-link">เพิ่มข้อมูลล้มเหลว</a></b-alert>
     <h1>
       Setting page
     </h1>
@@ -135,6 +141,10 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      alertStatus: 0,
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
       data: [],
       model: [],
       conversion: [],
@@ -192,8 +202,14 @@ export default {
       console.log('setting', this.data)
       axios.post('http://localhost:4000/settingmodel', this.data).then(response => {
         console.log(response.data);
+        this.alertStatus = 1
+        this.dismissCountDown = this.dismissSecs
+        this.mversion = ''
       }).catch(error => {
         console.error('Error fetching data:', error.message);
+        this.alertStatus = 3
+        this.dismissCountDown = this.dismissSecs
+        this.mversion = ''
       });
     },
     loadModel(select) {
@@ -213,6 +229,9 @@ export default {
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     }
   }
 }
