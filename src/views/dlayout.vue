@@ -54,6 +54,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -120,6 +122,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -182,6 +186,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -247,6 +253,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -309,6 +317,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -372,6 +382,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -434,6 +446,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -496,6 +510,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -558,6 +574,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -620,6 +638,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
@@ -688,6 +708,8 @@
                       }}</label></div>
                   <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
                     databox.conversion_char }}</label></div>
+                  <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
+                    databox.priority }}</label></div>
                 </div>
                 <br>
                 <b-button variant="outline-primary"
