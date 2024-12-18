@@ -806,7 +806,7 @@
         <b-row>
           <b-col>
             <div align="left" style="display: inline-block;" v-for="(top, index) in 10" :key="'K' + index">
-              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 160px;" :id="'bot' + index"
+              <div style="border: 2px solid gray;width: 70px;height: 70px;margin-top: 70px;" :id="'bot' + index"
                 v-b-modal="'modal-shelf-bot' + index" v-on:click="showdetail('div-shelf-bot' + index)"></div>
               <b-modal :id="'modal-shelf-bot' + index" size="xl" :title="'โลเคชั่น' + index" hide-footer>
                 <div style="font-weight: bold;">
