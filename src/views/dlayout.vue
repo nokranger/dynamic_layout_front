@@ -944,7 +944,15 @@ export default {
         show_detail: id
       }
       await axios.post('http://localhost:4000/allboxstation4', this.showbox).then(response => {
+      console.log('showdetail=======', response.data.result)
         this.showboxdetail2 = response.data.result
+        this.selecteds = this.showboxdetail2[0].station_id
+        this.selectedm = this.showboxdetail2[0].model
+        this.selectedmsg = this.showboxdetail2[0].submsg
+        this.selectedc = this.showboxdetail2[0].conversion_char
+        this.priority = this.showboxdetail2[0].priority
+        this.selectsubmsgno()
+        this.selectconversion()
         // console.log('getid=====2', this.showboxdetail2);
       }).catch(error => {
         console.error('Error fetching data:', error.message);
