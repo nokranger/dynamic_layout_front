@@ -27,6 +27,8 @@
               style="margin: 10px;">Delete</b-button>
           </b-modal>
         </div>
+        <div id="mydiv2">
+        </div>
       </div>
     </b-container>
   </div>
@@ -94,11 +96,25 @@ export default {
     //   i.style.width = "70px";
     //   i.style.backgroundColor = "lightblue";
     //   i.setAttribute('id', 'div' + e.clientX + '' + e.clientY)
-    //   i.addEventListener("click", ls.myScript())
-    //   i.addEventListener("mouseout", ls.myScript());
+    //   i.addEventListener('mousedown', ls.handleMouseDown());
+    //   i.addEventListener('mouseup', ls.handleMouseUp());
+    //   i.addEventListener('mouseleave', ls.handleMouseUp()); // In case the mouse leaves the div
+    //   // i.addEventListener("click", ls.myScript())
+    //   // i.addEventListener("mouseout", ls.myScript());
     //   document.body.appendChild(i);
     // }
   },
+  methods: {
+    handleMouseUp () {
+      clearTimeout(this.pressTimer);
+      console.log('show modal')
+    },
+    handleMouseDown () {
+      this.pressTimer = setTimeout(() => {
+        console.log('long press detected')
+      }, 1000)
+    }
+  }
 }
 </script>
 <style>
