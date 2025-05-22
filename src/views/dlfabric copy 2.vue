@@ -40,7 +40,12 @@
         </div>
       </div>
       <b-container>
-        <b-modal ref="my-modal" id="bv-modal-example" size="xl" :title="'ID: ' + dataModal.id" hide-footer>
+        <!-- <b-modal ref="my-modal" hide-footer title="Using Component Methods" size="sm">
+          <div class="d-block text-center">
+            <h3>{{ dataModal.id }}</h3>
+          </div>
+        </b-modal> -->
+        <b-modal ref="my-modal" size="xl" :title="'ID: ' + dataModal.id" hide-footer>
           <div style="font-weight: bold;">
             Name Station
           </div>
@@ -80,11 +85,11 @@
           <br>
           <div v-for="(databox, index) in showboxdetail2" :key="index">
             <div style="font-weight: bold;">Name Station: <label style="font-weight: normal;">{{ databox.name
-                }}</label></div>
+            }}</label></div>
             <div style="font-weight: bold;">Model: <label style="font-weight: normal;">{{ databox.model }}</label>
             </div>
             <div style="font-weight: bold;">Sub Message: <label style="font-weight: normal;">{{ databox.submsg
-                }}</label></div>
+            }}</label></div>
             <div style="font-weight: bold;">Conversion Character: <label style="font-weight: normal;">{{
               databox.conversion_char }}</label></div>
             <div style="font-weight: bold;">Priority: <label style="font-weight: normal;">{{
@@ -94,9 +99,12 @@
           <!-- <b-button variant="outline-primary"
             v-on:click="addBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
             style="margin: 10px;">Add</b-button> -->
-          <b-button variant="outline-danger" @click="$bvModal.hide('bv-modal-example')" style="margin: 10px;">Close</b-button>
-          <!-- <b-button variant="outline-warning" id="editText" style="margin: 10px;">Edit</b-button> -->
-          <!-- <b-button variant="outline-danger" v-on:click="deleteActiveObject" style="margin: 10px;">Delete</b-button> -->
+          <b-button variant="outline-warning"
+            v-on:click="editBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
+            style="margin: 10px;">Edit</b-button>
+          <b-button variant="outline-danger"
+            v-on:click="delBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
+            style="margin: 10px;">Delete</b-button>
         </b-modal>
       </b-container>
       <br>
@@ -110,13 +118,10 @@
       <br>
       <br>
       <canvas id="myCanvas" ref="canvas" width="1200" height="800" style="outline: black 3px solid;"></canvas>
-      <!-- <div>
-        {{ canva }}
-      </div> -->
-      <!-- <button v-on:click="check()">GetAAAA</button> -->
       <div>
-        {{ showobj }}
+        {{ canva }}
       </div>
+      <!-- <button v-on:click="check()">GetAAAA</button> -->
     </b-container>
 
   </div>
@@ -162,8 +167,7 @@ export default {
       sconversion_char: '',
       showboxdetail2: '',
       showbox: '',
-      priority: '',
-      showobj: ''
+      priority: ''
     }
   },
   mounted() {
@@ -202,11 +206,11 @@ export default {
         borderDashArray: [3, 1, 3],
         borderScaleFactor: 2,
         hasControls: true,
-        station_id: value,
-        model: value2,
-        submsg: value3,
-        conversion_char: value4,
-        priority: value5
+        text11: value,
+        text2: value2,
+        text3: value3,
+        text4: value4,
+        text5: value5
 
       });
       // Add a custom delete control (e.g., trash icon) to the text object
@@ -255,21 +259,9 @@ export default {
     }
     // Delete control handler
     function deleteObject(eventData, transform) {
-      // const canvas = transform.target.canvas;
-      const target = transform.target;
-      const canvas = target.canvas;
-      canvas.remove(target);
+      const canvas = transform.target.canvas;
+      canvas.remove(transform.target);
       canvas.requestRenderAll();
-      // 🧨 If object has an ID, call backend to delete
-      if (target.id) {
-        axios.delete(`http://localhost:4000/boxstation2/${target.id}`)
-          .then(res => {
-            console.log(`✅ Deleted from backend: ID = ${target.id}`);
-          })
-          .catch(err => {
-            console.error(`❌ Failed to delete ID ${target.id} from backend`, err);
-          });
-      }
     }
 
     // Custom control icon renderer
@@ -290,21 +282,20 @@ export default {
 
     // Handle text editing
     document.getElementById('editText').onclick = () => {
-      console.log('Object flipped===========');
       const activeObject = canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         const newText = document.getElementById('textInput2').value + '\n' + document.getElementById('textInput3').value
-        const newstation_id = document.getElementById('textInput').value
-        const newmodel = document.getElementById('textInput2').value
-        const newsubmsg = document.getElementById('textInput3').value
-        const newconversion_char = document.getElementById('textInput4').value
-        const newpriority = document.getElementById('textInput5').value
+        const newText11 = document.getElementById('textInput').value
+        const newText2 = document.getElementById('textInput2').value
+        const newText3 = document.getElementById('textInput3').value
+        const newText4 = document.getElementById('textInput4').value
+        const newText5 = document.getElementById('textInput5').value
         activeObject.set('text', newText); // Update the text value
-        activeObject.set('station_id', newstation_id); // Update the text value
-        activeObject.set('model', newmodel); // Update the text value
-        activeObject.set('submsg', newsubmsg); // Update the text value
-        activeObject.set('conversion_char', newconversion_char); // Update the text value
-        activeObject.set('priority', newpriority); // Update the text value
+        activeObject.set('text11', newText11); // Update the text value
+        activeObject.set('text2', newText2); // Update the text value
+        activeObject.set('text3', newText3); // Update the text value
+        activeObject.set('text4', newText4); // Update the text value
+        activeObject.set('text5', newText5); // Update the text value
         canvas.renderAll(); // Re-render canvas to show the updated text
         console.log(`Updated text for object with ID: ${activeObject.id}`);
       }
@@ -333,25 +324,17 @@ export default {
       return function (...args) {
         return {
           ...toObject.call(this, ...args),
-          station_id: this.station_id || '',
-          model: this.model || '',
-          submsg: this.submsg || '',
-          conversion_char: this.conversion_char || '',
-          priority: this.priority || ''
+          text11: this.text11 || '',
+          text2: this.text2 || '',
+          text3: this.text3 || '',
+          text4: this.text4 || '',
+          text5: this.text5 || ''
         };
       };
     })(fabric.Object.prototype.toObject);
 
     // Add event listener for the new "Get Canvas JSON" button
     document.getElementById('getJson').onclick = () => {
-      fabric.Object.prototype.toObject = (function (toObject) {
-        return function (...args) {
-          return {
-            ...toObject.call(this, ...args),
-            id: this.id || ''
-          };
-        };
-      })(fabric.Object.prototype.toObject);
       const json = canvas.toJSON();
       // console.log('Canvas JSON:', JSON.stringify(json, null, 2));  // Pretty print JSON
       this.canva = JSON.stringify(json, null, 2)
@@ -360,13 +343,11 @@ export default {
       // Convert each object to simplified info (id, text, left, top, fontSize)
       const objectsData = canvas.getObjects().map(obj => obj.toObject());
       this.loadjson = objectsData;
-      // console.log('loadjson:=========', this.loadjson);
-      this.sendCanvasDataToAPI(this.loadjson)
+      console.log('loadjson:=========', this.loadjson);
     };
 
     // Hook up add text button
-    document.getElementById('addText').onclick = () => Add(
-    );
+    document.getElementById('addText').onclick = () => Add();
 
     function loadCanvasFromArray(dataArray) {
       canvas.clear();
@@ -374,9 +355,9 @@ export default {
       dataArray.forEach((item) => {
         const type = item.type?.toLowerCase();
         const id = item.id || generateUniqueId();
-        // console.log('loadjson:=========', 'item.station_id' + 'item.model' + item.submsg);
+        // console.log('loadjson:=========', 'item.text11' + 'item.text2' + item.text3);
         if (type === 'text') {
-          console.log('loadjson:=========', 'item.station_id' + item.model);
+          console.log('loadjson:=========', 'item.text11' + item.text2);
           const text = new fabric.Text(item.text, {
             ...item,
             id,
@@ -390,11 +371,11 @@ export default {
             borderColor: 'orange',
             borderDashArray: [3, 1, 3],
             borderScaleFactor: 2,
-            station_id: item.station_id,
-            model: item.model,
-            submsg: item.submsg,
-            conversion_char: item.conversion_char,
-            priority: item.priority
+            text11: item.text11,
+            text2: item.text2,
+            text3: item.text3,
+            text4: item.text4,
+            text5: item.text5
           });
 
           // ✅ Re-attach the custom delete control
@@ -474,54 +455,68 @@ export default {
         "backgroundColor": ""
       }
     ];
+    // let test = [
+    //   {
+    //     fontSize,
+    //     fontWeight,
+    //     fontFamily,
+    //     fontStyle,
+    //     lineHeight,
+    //     text,
+    //     charSpacing,
+    //     textAlign,
+    //     styles,
+    //     pathStartOffset,
+    //     pathSide,
+    //     pathAlign,
+    //     underline,
+    //     overline,
+    //     linethrough,
+    //     textBackgroundColor,
+    //     direction,
+    //     type,
+    //     version,
+    //     originX,
+    //     originY,
+    //     left,
+    //     top,
+    //     width,
+    //     height,
+    //     fill,
+    //     stroke,
+    //     strokeWidth,
+    //     strokeDashArray,
+    //     strokeLineCap,
+    //     strokeDashOffset,
+    //     strokeLineJoin,
+    //     strokeUniform,
+    //     strokeMiterLimit,
+    //     scaleX,
+    //     scaleY,
+    //     angle,
+    //     flipX,
+    //     flipY,
+    //     opacity,
+    //     shadow,
+    //     visible,
+    //     backgroundColor,
+    //     fillRule,
+    //     paintFirst,
+    //     globalCompositeOperation,
+    //     skewX,
+    //     skewY,
+    //     text11,
+    //     text2,
+    //     text3,
+    //     text4,
+    //     text5
+    //   }
+    // ]
     // loadCanvasFromArray(this.loadjson); // ← use your extracted data
 
 
     document.getElementById('loadJson').onclick = () => {
-      axios.get('http://localhost:4000/allboxstationCanva')
-        .then((res) => {
-          // alert('Insert success!');
-          console.log('getdata success======', res.data.result);
-          this.loadjson = res.data.result.map(item => ({
-            ...item,
-            // Convert numbers to booleans
-            underline: !!item.underline,
-            overline: !!item.overline,
-            linethrough: !!item.linethrough,
-            strokeUniform: !!item.strokeUniform,
-            flipX: !!item.flipX,
-            flipY: !!item.flipY,
-            visible: !!item.visible,
-
-            // Convert JSON strings back to real objects/arrays
-            styles: JSON.parse(item.styles || '[]'),
-            strokeDashArray: JSON.parse(item.strokeDashArray || '[]'),
-            shadow: JSON.parse(item.shadow || '{}'),
-
-            // Ensure number types for numeric strings
-            fontSize: parseFloat(item.fontSize),
-            strokeWidth: parseFloat(item.strokeWidth),
-            scaleX: parseFloat(item.scaleX),
-            scaleY: parseFloat(item.scaleY),
-            angle: parseFloat(item.angle),
-            skewX: parseFloat(item.skewX),
-            skewY: parseFloat(item.skewY),
-            left: parseFloat(item.left),
-            top: parseFloat(item.top),
-            width: parseFloat(item.width),
-            height: parseFloat(item.height),
-            opacity: parseFloat(item.opacity),
-          }));
-          this.showobj = this.loadjson
-          loadCanvasFromArray(this.loadjson);
-        })
-        .catch((err) => {
-          alert('Insert failed!');
-          console.error(err);
-        });
-      // console.log('getdata success======', this.loadjson);
-      // this.showobj = this.loadjson
-      // loadCanvasFromArray(this.loadjson);
+      loadCanvasFromArray(this.loadjson);
       this.showdetail()
     };
     window.__vueShowInfoModal = (obj) => {
@@ -573,7 +568,15 @@ export default {
         console.error('Error fetching data:', error.message);
       });
       axios.get('http://localhost:4000/allboxstation3').then(response => {
+        // console.log('getid', response.data.result);
+        // console.log('getidModal', document.getElementById('modal-shelf-top1'));
         this.showboxdetail = response.data.result
+        // this.showboxdetail = this.showboxdetail.filter((i) => {
+        //   let divboxid = document.getElementById(i.layout_location)
+        //   divboxid.style.backgroundColor = 'lightblue'
+        //   return i.layout_location == document.getElementById(i.layout_location).id
+        // })
+        // console.log('getid=====', this.showboxdetail);
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
@@ -628,11 +631,11 @@ export default {
       // }
       // axios.post('http://localhost:4000/allboxstation4', this.showbox).then(response => {
       //   console.log('showdetail=======', response.data.result)
-      this.selecteds = this.dataModal.station_id
-      this.selectedm = this.dataModal.model
-      this.selectedmsg = this.dataModal.submsg
-      this.selectedc = this.dataModal.conversion_char
-      this.priority = this.dataModal.priority
+      this.selecteds = this.dataModal.text11
+      this.selectedm = this.dataModal.text2
+      this.selectedmsg = this.dataModal.text3
+      this.selectedc = this.dataModal.text4
+      this.priority = this.dataModal.text5
       this.selectsubmsgno()
       this.selectconversion()
       // console.log('getid=====2', this.showboxdetail2);
@@ -640,11 +643,10 @@ export default {
       //   console.error('Error fetching data:', error.message);
       // });
     },
-    sendCanvasDataToAPI(obj) {
-      const data = obj // or use: canvas.getObjects().map(obj => obj.toObject());
-      console.log('ss========', data)
-      this.showobj = obj
-      axios.post('http://localhost:4000/boxstation2', data)
+    sendCanvasDataToAPI() {
+      const data = this.loadjson; // or use: canvas.getObjects().map(obj => obj.toObject());
+
+      axios.post('https://example.com/api/canvas', data)
         .then((res) => {
           alert('Insert success!');
           console.log(res.data);
@@ -653,29 +655,6 @@ export default {
           alert('Insert failed!');
           console.error(err);
         });
-    },
-    deleteActiveObject() {
-      const activeObject = this.canvas.getActiveObject(); // or use ref to canvas
-
-      if (!activeObject) {
-        alert('No object selected');
-        return;
-      }
-
-      // Call the same logic as your Fabric deleteObject()
-      this.canvas.remove(activeObject);
-      this.canvas.requestRenderAll();
-
-      // Delete from backend if has ID
-      if (activeObject.id) {
-        axios.delete(`http://localhost:4000/boxstation2/${activeObject.id}`)
-          .then(() => {
-            console.log(`✅ Deleted object with ID ${activeObject.id}`);
-          })
-          .catch((err) => {
-            console.error(`❌ Failed to delete object ID ${activeObject.id}`, err);
-          });
-      }
     }
   }
 };
