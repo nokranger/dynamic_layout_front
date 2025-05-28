@@ -57,6 +57,28 @@
                 </div>
               </div>
             </div>
+            <br>
+            <div>
+              <div style="font-weight: bold;">
+                A
+              </div>
+              <div>
+                <div>
+                  <b-form-select v-model="selectmsgA" :options="submsgnoA"></b-form-select>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div>
+              <div style="font-weight: bold;">
+                B
+              </div>
+              <div>
+                <div>
+                  <b-form-select v-model="selectmsgB" :options="submsgnoB"></b-form-select>
+                </div>
+              </div>
+            </div>
           </b-col>
           <b-col></b-col>
         </b-row>
@@ -109,7 +131,15 @@ export default {
       dismissSecs: 5,
       dismissCountDown: 0,
       showDismissibleAlert: false,
+      selectmsgA: null,
+      submsgnoA: [],
+      selectmsgB: null,
+      submsgnoB: []
     }
+  },
+  async mounted () {
+    await this.selectsubmsgnoA()
+    await this.selectsubmsgnoB()
   },
   methods: {
     addSetting() {
@@ -117,7 +147,9 @@ export default {
         namestation: this.nameStation,
         picking: this.selected,
         lot_size: this.selected2,
-        condition: this.selected3
+        condition: this.selected3,
+        sa: this.selectmsgA,
+        sb: this.selectmsgB
       }
       console.log('setting', this.setting)
       axios.post('http://localhost:4000/settingworking', this.setting).then(response => {
@@ -134,7 +166,57 @@ export default {
     },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown
-    }
+    },
+    async selectsubmsgnoA() {
+      console.log('AAAAAAAAA====')
+      await axios.get('http://localhost:4000/allconversion').then(response => {
+        // console.log(response.data);
+        // this.options = response.data.result
+        this.submsgnoA = response.data.result
+        // console.log('mmm====', this.selectedm)
+        // this.submsgno = this.submsgno.filter((i) => {
+        //   console.log('ccc====', i.model)
+        //   // console.log('ccc====', i.submsgno)
+        //   return i.model == this.selectedm
+        // })
+        // console.log('allmsghno', this.submsgno)
+        this.submsgnoA = this.submsgnoA.map((data, i) => {
+          return {
+            value: data.submsgno,
+            text: data.submsgno
+          }
+        })
+        this.submsgnoA.push({ "value": null, "text": "Please select an option" })
+        // this.model.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    async selectsubmsgnoB() {
+      console.log('BBBBBBBBB====')
+      await axios.get('http://localhost:4000/allconversion').then(response => {
+        // console.log(response.data);
+        // this.options = response.data.result
+        this.submsgnoB = response.data.result
+        // console.log('mmm====', this.selectedm)
+        // this.submsgno = this.submsgno.filter((i) => {
+        //   console.log('ccc====', i.model)
+        //   // console.log('ccc====', i.submsgno)
+        //   return i.model == this.selectedm
+        // })
+        // console.log('allmsghno', this.submsgno)
+        this.submsgnoB = this.submsgnoB.map((data, i) => {
+          return {
+            value: data.submsgno,
+            text: data.submsgno
+          }
+        })
+        this.submsgnoB.push({ "value": null, "text": "Please select an option" })
+        // this.model.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
   }
 }
 </script>
