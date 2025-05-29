@@ -64,7 +64,13 @@
               </div>
               <div>
                 <div>
-                  <b-form-select v-model="selectmsgA" :options="submsgnoA"></b-form-select>
+                  <b-form-select v-model="selectmsgA" :options="submsgnoA" v-on:change="concatStringA(selectmsgA)"></b-form-select>
+                </div>
+              </div>
+              <br>
+              <div>
+                <div>
+                  <b-input v-model="stringA" placeholder="Type Your Name Station"></b-input>
                 </div>
               </div>
             </div>
@@ -75,7 +81,13 @@
               </div>
               <div>
                 <div>
-                  <b-form-select v-model="selectmsgB" :options="submsgnoB"></b-form-select>
+                  <b-form-select v-model="selectmsgB" :options="submsgnoB" v-on:change="concatStringB(selectmsgB)"></b-form-select>
+                </div>
+              </div>
+              <br>
+              <div>
+                <div>
+                  <b-input v-model="stringB" placeholder="Type Your Name Station"></b-input>
                 </div>
               </div>
             </div>
@@ -134,10 +146,12 @@ export default {
       selectmsgA: null,
       submsgnoA: [],
       selectmsgB: null,
-      submsgnoB: []
+      submsgnoB: [],
+      stringA: "",
+      stringB: ""
     }
   },
-  async mounted () {
+  async mounted() {
     await this.selectsubmsgnoA()
     await this.selectsubmsgnoB()
   },
@@ -148,8 +162,8 @@ export default {
         picking: this.selected,
         lot_size: this.selected2,
         condition: this.selected3,
-        sa: this.selectmsgA,
-        sb: this.selectmsgB
+        sa: this.stringA,
+        sb: this.stringB
       }
       console.log('setting', this.setting)
       axios.post('http://localhost:4000/settingworking', this.setting).then(response => {
@@ -217,6 +231,18 @@ export default {
         console.error('Error fetching data:', error.message);
       });
     },
+    concatWithComma(existingString, newString) {
+      if (existingString === "" || existingString === null || existingString === undefined) {
+        return newString;
+      }
+      return existingString + ", " + newString;
+    },
+    concatStringA (value) {
+      this.stringA = this.concatWithComma(this.stringA, value)
+    },
+    concatStringB (value) {
+      this.stringB = this.concatWithComma(this.stringB, value)
+    }
   }
 }
 </script>

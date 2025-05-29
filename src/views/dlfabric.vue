@@ -94,7 +94,8 @@
           <!-- <b-button variant="outline-primary"
             v-on:click="addBoxstation('top' + index, 'modal-shelf-top' + index, 'div-shelf-top' + index)"
             style="margin: 10px;">Add</b-button> -->
-          <b-button variant="outline-danger" @click="$bvModal.hide('bv-modal-example')" style="margin: 10px;">Close</b-button>
+          <b-button variant="outline-danger" @click="$bvModal.hide('bv-modal-example')"
+            style="margin: 10px;">Close</b-button>
           <!-- <b-button variant="outline-warning" id="editText" style="margin: 10px;">Edit</b-button> -->
           <!-- <b-button variant="outline-danger" v-on:click="deleteActiveObject" style="margin: 10px;">Delete</b-button> -->
         </b-modal>
@@ -114,9 +115,9 @@
         {{ canva }}
       </div> -->
       <!-- <button v-on:click="check()">GetAAAA</button> -->
-      <div>
+      <!-- <div>
         {{ showobj }}
-      </div>
+      </div> -->
     </b-container>
 
   </div>
@@ -206,7 +207,11 @@ export default {
         model: value2,
         submsg: value3,
         conversion_char: value4,
-        priority: value5
+        priority: value5,
+
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // สีพื้นหลังขาวใส
+        rx: 10,                                       // มุมโค้ง (optional)
+        ry: 10
 
       });
       // Add a custom delete control (e.g., trash icon) to the text object
@@ -394,7 +399,10 @@ export default {
             model: item.model,
             submsg: item.submsg,
             conversion_char: item.conversion_char,
-            priority: item.priority
+            priority: item.priority,
+            backgroundColor: 'rgba(255, 255, 255, 0.8)', // สีพื้นหลังขาวใส
+            rx: 10,                                       // มุมโค้ง (optional)
+            ry: 10
           });
 
           // ✅ Re-attach the custom delete control
@@ -511,6 +519,9 @@ export default {
             width: parseFloat(item.width),
             height: parseFloat(item.height),
             opacity: parseFloat(item.opacity),
+            backgroundColor: 'rgba(255, 255, 255, 0.8)', // สีพื้นหลังขาวใส
+            rx: 10,                                       // มุมโค้ง (optional)
+            ry: 10
           }));
           this.showobj = this.loadjson
           loadCanvasFromArray(this.loadjson);
