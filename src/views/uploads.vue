@@ -50,7 +50,8 @@ import setting2 from '../views/settingpage2.vue';
 import setting3 from '../views/setting3.vue';
 import setting4 from '../views/setting4.vue';
 import textfile from '../views/alctxt.vue';
-import mainPage from '../views/dlayout.vue';
+// import mainPage from '../views/dlayout.vue';
+import mainPage from '../views/fabick2.vue';
 export default {
   components: {
     upload,
