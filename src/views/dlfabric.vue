@@ -486,7 +486,10 @@ export default {
 
 
     document.getElementById('loadJson').onclick = () => {
-      axios.get('http://localhost:4000/allboxstationCanva')
+      let datastation = {
+        station: this.selecteds
+      }
+      axios.post('http://localhost:4000/allboxstationCanva', datastation)
         .then((res) => {
           // alert('Insert success!');
           console.log('getdata success======', res.data.result);
@@ -533,7 +536,6 @@ export default {
       // console.log('getdata success======', this.loadjson);
       // this.showobj = this.loadjson
       // loadCanvasFromArray(this.loadjson);
-      this.showdetail()
     };
     window.__vueShowInfoModal = (obj) => {
       this.openInfoModal(obj); // your Vue method
