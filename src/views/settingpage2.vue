@@ -19,6 +19,10 @@
                 Name Station
               </div>
               <div>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
+              </div>
+              <br>
+              <div>
                 <div>
                   <b-input v-model="nameStation" placeholder="Type Your Name Station"></b-input>
                 </div>
@@ -64,7 +68,8 @@
               </div>
               <div>
                 <div>
-                  <b-form-select v-model="selectmsgA" :options="submsgnoA" v-on:change="concatStringA(selectmsgA)"></b-form-select>
+                  <b-form-select v-model="selectmsgA" :options="submsgnoA"
+                    v-on:change="concatStringA(selectmsgA)"></b-form-select>
                 </div>
               </div>
               <br>
@@ -81,7 +86,8 @@
               </div>
               <div>
                 <div>
-                  <b-form-select v-model="selectmsgB" :options="submsgnoB" v-on:change="concatStringB(selectmsgB)"></b-form-select>
+                  <b-form-select v-model="selectmsgB" :options="submsgnoB"
+                    v-on:change="concatStringB(selectmsgB)"></b-form-select>
                 </div>
               </div>
               <br>
@@ -98,6 +104,12 @@
         <b-row>
           <b-col>
             <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Save Setting</b-button>
+          </b-col>
+          <b-col>
+            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Update Setting</b-button>
+          </b-col>
+          <b-col>
+            <b-button variant="outline-danger" style="margin: 5px;" v-on:click="addSetting()">Delete Setting</b-button>
           </b-col>
         </b-row>
         <br>
@@ -237,10 +249,10 @@ export default {
       }
       return existingString + ", " + newString;
     },
-    concatStringA (value) {
+    concatStringA(value) {
       this.stringA = this.concatWithComma(this.stringA, value)
     },
-    concatStringB (value) {
+    concatStringB(value) {
       this.stringB = this.concatWithComma(this.stringB, value)
     }
   }
