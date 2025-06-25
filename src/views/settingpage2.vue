@@ -19,7 +19,7 @@
                 Name Station
               </div>
               <div>
-                <b-form-select v-model="selected" :options="options"></b-form-select>
+                <b-form-select v-model="selecteds" :options="stationO" v-on:change="CallStation"></b-form-select>
               </div>
               <br>
               <div>
@@ -106,10 +106,12 @@
             <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Save Setting</b-button>
           </b-col>
           <b-col>
-            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Update Setting</b-button>
+            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="updateStation()">Update
+              Setting</b-button>
           </b-col>
           <b-col>
-            <b-button variant="outline-danger" style="margin: 5px;" v-on:click="addSetting()">Delete Setting</b-button>
+            <b-button variant="outline-danger" style="margin: 5px;" v-on:click="deleteStation()">Delete
+              Setting</b-button>
           </b-col>
         </b-row>
         <br>
@@ -160,12 +162,16 @@ export default {
       selectmsgB: null,
       submsgnoB: [],
       stringA: "",
-      stringB: ""
+      stringB: "",
+      selecteds: null,
+      stationO: [],
+      CallStationData: ''
     }
   },
   async mounted() {
     await this.selectsubmsgnoA()
     await this.selectsubmsgnoB()
+    await this.loadlocation()
   },
   methods: {
     addSetting() {
@@ -192,6 +198,99 @@ export default {
     },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown
+    },
+    CallStation() {
+      console.log('allstation', this.selecteds)
+      let dataStation = {
+        station: this.selecteds
+      }
+      axios.post('http://localhost:4000/Callallstation', dataStation).then(response => {
+        this.CallStationData = response.data.result
+        console.log('allstation', response.data.result)
+        this.nameStation = this.CallStationData[0].name
+        this.selected = this.CallStationData[0].picking_sequence
+        this.selected2 = this.CallStationData[0].lot_size
+        this.selected3 = this.CallStationData[0].condition
+        this.stringA = this.CallStationData[0].sa
+        this.stringB = this.CallStationData[0].sb
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    updateStation() {
+      let dataStationUpdate = {
+        station_id: this.selecteds,
+        name: this.nameStation,
+        picking_sequence: this.selected,
+        lot_size: this.selected2,
+        condition: this.selected3,
+        sa: this.stringA,
+        sb: this.stringB
+      }
+      axios.post('http://localhost:4000/updateallstation', dataStationUpdate).then(response => {
+        // console.log('allstation', response.data.result)
+        this.selecteds = null
+        this.nameStation = ""
+        this.selected = null
+        this.selected2 = null
+        this.selected3 = null
+        this.stringA = ""
+        this.stringB = ""
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    deleteStation() {
+      let dataStationUpdate = {
+        station_id: this.selecteds,
+      }
+      axios.post('http://localhost:4000/deletestation', dataStationUpdate).then(response => {
+        // console.log('allstation', response.data.result)
+        this.selecteds = null
+        this.nameStation = ""
+        this.selected = null
+        this.selected2 = null
+        this.selected3 = null
+        this.stringA = ""
+        this.stringB = ""
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    loadlocation() {
+      axios.get('http://localhost:4000/allstation')
+        .then(response => {
+          this.stationO = response.data.result
+          this.stationO = response.data.result.map((data, i) => {
+            return {
+              value: data.station_id,
+              text: data.name
+            }
+          })
+          this.stationO.push({ "value": null, "text": "Please select an option" })
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error.message);
+        });
+
+      // axios.get('http://localhost:4000/alldiasbc2').then(response => {
+      //   console.log(response.data);
+      //   this.model = response.data.result.map((data, i) => {
+      //     return {
+      //       value: data.model,
+      //       text: data.model
+      //     }
+      //   })
+      //   this.model.push({ "value": null, "text": "Please select an option" })
+      // }).catch(error => {
+      //   console.error('Error fetching data:', error.message);
+      // });
+
+      // axios.get('http://localhost:4000/allboxstation3').then(response => {
+      //   this.showboxdetail = response.data.result
+      // }).catch(error => {
+      //   console.error('Error fetching data:', error.message);
+      // });
     },
     async selectsubmsgnoA() {
       console.log('AAAAAAAAA====')
