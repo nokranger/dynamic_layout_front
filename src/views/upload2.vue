@@ -144,7 +144,7 @@ export default {
           }
         })
         this.jsondata2Tnos5 = jsonMapTnos5
-        console.log(this.jsondata2Tnos5)
+        console.log('datafromexcel===========', this.jsondata2Tnos5)
         axios.post('http://localhost:4000/conversiondias', this.jsondata2Tnos5).then(response => {
           console.log(response.data);
           this.alertStatus = 1
