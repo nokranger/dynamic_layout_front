@@ -67,15 +67,24 @@
                 A
               </div>
               <div>
-                <div>
-                  <b-form-select v-model="selectmsgA" :options="submsgnoA"
-                    v-on:change="concatStringA(selectmsgA)"></b-form-select>
-                </div>
+                <b-row>
+                  <b-col cols="5">
+                    <div>
+                      <b-form-select v-model="selectmsgA" :options="submsgnoA"></b-form-select>
+                    </div>
+                  </b-col>
+                  <b-col cols="5" style="margin-left: 50px;">
+                    <div>
+                      <b-form-select v-model="selectedkeyseqA" :options="keyseqA"
+                        v-on:change="concatStringA(selectmsgA, selectedkeyseqA)"></b-form-select>
+                    </div>
+                  </b-col>
+                </b-row>
               </div>
               <br>
               <div>
-                <div>
-                  <b-input v-model="stringA" placeholder="Type Your Name Station"></b-input>
+                <div v-for="(item, index) in stringA" :key="index">
+                  <b-input :value="item.submsg + ', ' + item.part_name" placeholder="..."></b-input>
                 </div>
               </div>
             </div>
@@ -85,15 +94,24 @@
                 B
               </div>
               <div>
-                <div>
-                  <b-form-select v-model="selectmsgB" :options="submsgnoB"
-                    v-on:change="concatStringB(selectmsgB)"></b-form-select>
-                </div>
+                <b-row>
+                  <b-col cols="5">
+                    <div>
+                      <b-form-select v-model="selectmsgB" :options="submsgnoB"></b-form-select>
+                    </div>
+                  </b-col>
+                  <b-col cols="5" style="margin-left: 50px;">
+                    <div>
+                      <b-form-select v-model="selectedkeyseqB" :options="keyseqB"
+                        v-on:change="concatStringB(selectmsgB, selectedkeyseqB)"></b-form-select>
+                    </div>
+                  </b-col>
+                </b-row>
               </div>
               <br>
               <div>
-                <div>
-                  <b-input v-model="stringB" placeholder="Type Your Name Station"></b-input>
+                <div v-for="(item, index) in stringB" :key="index">
+                  <b-input :value="item.submsg + ', ' + item.part_name" placeholder="..."></b-input>
                 </div>
               </div>
             </div>
@@ -103,17 +121,18 @@
         <br>
         <b-row>
           <b-col>
-            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Save Setting</b-button>
+            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Add Station</b-button>
           </b-col>
           <b-col>
             <b-button variant="outline-primary" style="margin: 5px;" v-on:click="updateStation()">Update
-              Setting</b-button>
+              Station</b-button>
           </b-col>
           <b-col>
             <b-button variant="outline-danger" style="margin: 5px;" v-on:click="deleteStation()">Delete
-              Setting</b-button>
+              Station</b-button>
           </b-col>
         </b-row>
+        {{ setting }}
         <br>
       </b-container>
     </div>
@@ -165,12 +184,18 @@ export default {
       stringB: "",
       selecteds: null,
       stationO: [],
-      CallStationData: ''
+      CallStationData: '',
+      selectedkeyseqA: null,
+      keyseqA: [],
+      selectedkeyseqB: null,
+      keyseqB: [],
     }
   },
   async mounted() {
     await this.selectsubmsgnoA()
     await this.selectsubmsgnoB()
+    await this.selectkeyseqA()
+    await this.selectkeyseqB()
     await this.loadlocation()
   },
   methods: {
@@ -180,8 +205,8 @@ export default {
         picking: this.selected,
         lot_size: this.selected2,
         condition: this.selected3,
-        sa: this.stringA,
-        sb: this.stringB
+        sa: JSON.stringify(this.stringA),
+        sb: JSON.stringify(this.stringB)
       }
       console.log('setting', this.setting)
       axios.post('http://localhost:4000/settingworking', this.setting).then(response => {
@@ -202,7 +227,7 @@ export default {
     CallStation() {
       console.log('allstation', this.selecteds)
       let dataStation = {
-        station: this.selecteds
+        station_id: this.selecteds
       }
       axios.post('http://localhost:4000/Callallstation', dataStation).then(response => {
         this.CallStationData = response.data.result
@@ -224,8 +249,8 @@ export default {
         picking_sequence: this.selected,
         lot_size: this.selected2,
         condition: this.selected3,
-        sa: this.stringA,
-        sb: this.stringB
+        sa: JSON.stringify(this.stringA),
+        sb: JSON.stringify(this.stringB)
       }
       axios.post('http://localhost:4000/updateallstation', dataStationUpdate).then(response => {
         // console.log('allstation', response.data.result)
@@ -273,24 +298,6 @@ export default {
           console.error('Error fetching data:', error.message);
         });
 
-      // axios.get('http://localhost:4000/alldiasbc2').then(response => {
-      //   console.log(response.data);
-      //   this.model = response.data.result.map((data, i) => {
-      //     return {
-      //       value: data.model,
-      //       text: data.model
-      //     }
-      //   })
-      //   this.model.push({ "value": null, "text": "Please select an option" })
-      // }).catch(error => {
-      //   console.error('Error fetching data:', error.message);
-      // });
-
-      // axios.get('http://localhost:4000/allboxstation3').then(response => {
-      //   this.showboxdetail = response.data.result
-      // }).catch(error => {
-      //   console.error('Error fetching data:', error.message);
-      // });
     },
     async selectsubmsgnoA() {
       console.log('AAAAAAAAA====')
@@ -305,12 +312,12 @@ export default {
         //   return i.model == this.selectedm
         // })
         // console.log('allmsghno', this.submsgno)
-        this.submsgnoA = this.submsgnoA.map((data, i) => {
+        this.submsgnoA = [...new Set(this.submsgnoA.map(item => item.submsgno))].map((unique) => {
           return {
-            value: data.submsgno,
-            text: data.submsgno
-          }
-        })
+            value: unique,
+            text: unique
+          };
+        });
         this.submsgnoA.push({ "value": null, "text": "Please select an option" })
         // this.model.push({ "value": null, "text": "Please select an option" })
       }).catch(error => {
@@ -330,30 +337,76 @@ export default {
         //   return i.model == this.selectedm
         // })
         // console.log('allmsghno', this.submsgno)
-        this.submsgnoB = this.submsgnoB.map((data, i) => {
+        this.submsgnoB = [...new Set(this.submsgnoB.map(item => item.submsgno))].map((unique) => {
           return {
-            value: data.submsgno,
-            text: data.submsgno
-          }
-        })
+            value: unique,
+            text: unique
+          };
+        });
         this.submsgnoB.push({ "value": null, "text": "Please select an option" })
         // this.model.push({ "value": null, "text": "Please select an option" })
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
     },
-    concatWithComma(existingString, newString) {
-      if (existingString === "" || existingString === null || existingString === undefined) {
-        return newString;
+    async selectkeyseqA() {
+      await axios.get('http://localhost:4000/allkeyseq').then(response => {
+        console.log('keysq=====', response.data.result)
+        this.keyseqA = response.data.result
+        this.keyseqA = this.keyseqA.map((data, i) => {
+          return {
+            value: data,
+            text: data
+          }
+        })
+        this.keyseqA.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    async selectkeyseqB() {
+      await axios.get('http://localhost:4000/allkeyseq').then(response => {
+        console.log('keysq=====', response.data.result)
+        this.keyseqB = response.data.result
+        this.keyseqB = this.keyseqB.map((data, i) => {
+          return {
+            value: data,
+            text: data
+          }
+        })
+        this.keyseqB.push({ "value": null, "text": "Please select an option" })
+      }).catch(error => {
+        console.error('Error fetching data:', error.message);
+      });
+    },
+    concatStringA(value1, value2) {
+      // ตรวจว่าถ้ายังไม่มี array ก็สร้างใหม่
+      if (!Array.isArray(this.stringA)) {
+        this.stringA = [];
       }
-      return existingString + ", " + newString;
+
+      // เพิ่ม object เข้า array เดิม
+      this.stringA.push({
+        submsg: value1,
+        part_name: value2
+      });
+
+      console.log('stringA รวมทั้งหมด:', this.stringA);
     },
-    concatStringA(value) {
-      this.stringA = this.concatWithComma(this.stringA, value)
+    concatStringB(value1, value2) {
+      // ตรวจว่าถ้ายังไม่มี array ก็สร้างใหม่
+      if (!Array.isArray(this.stringB)) {
+        this.stringB = [];
+      }
+
+      // เพิ่ม object เข้า array เดิม
+      this.stringB.push({
+        submsg: value1,
+        part_name: value2
+      });
+
+      console.log('stringA รวมทั้งหมด:', this.stringB);
     },
-    concatStringB(value) {
-      this.stringB = this.concatWithComma(this.stringB, value)
-    }
   }
 }
 </script>
