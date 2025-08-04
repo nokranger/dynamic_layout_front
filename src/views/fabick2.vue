@@ -448,50 +448,6 @@ export default {
       console.log(`Updated size: width=${obj.width}, height=${obj.height}`);
     });
 
-    // Extend toObject method for custom properties
-    // fabric.Object.prototype.toObject = (function (toObject) {
-    //   return function (...args) {
-    //     return {
-    //       ...toObject.call(this, ...args),
-    //       station_id: this.station_id || '',
-    //       model: this.model || '',
-    //       submsg: this.submsg || '',
-    //       conversion_char: this.conversion_char || '',
-    //       priority: this.priority || '',
-    //       // objects: this._objects.map(obj => obj.toObject()),  // ✅ สำคัญมาก
-    //       hasBackgroundImage: this.hasBackgroundImage || false,
-    //       backgroundImageSrc: this.backgroundImageSrc || ''
-    //     };
-    //   };
-    // })(fabric.Object.prototype.toObject);
-
-    // // เก็บ custom field สำหรับทุก object
-    // fabric.Object.prototype.toObject = (function (toObject) {
-    //   return function (...args) {
-    //     return {
-    //       ...toObject.call(this, ...args),
-    //       station_id: this.station_id || '',
-    //       model: this.model || '',
-    //       submsg: this.submsg || '',
-    //       conversion_char: this.conversion_char || '',
-    //       priority: this.priority || '',
-    //       hasBackgroundImage: this.hasBackgroundImage || false,
-    //       backgroundImageSrc: this.backgroundImageSrc || ''
-    //     };
-    //   };
-    // })(fabric.Object.prototype.toObject);
-
-    // // เก็บ object ภายในกลุ่มด้วย
-    // fabric.Group.prototype.toObject = (function (toObject) {
-    //   return function (...args) {
-    //     return {
-    //       ...toObject.call(this, ...args),
-    //       objects: this._objects.map(obj => obj.toObject()),
-    //       backgroundImageSrc: this.backgroundImageSrc || '',
-    //       hasBackgroundImage: this.hasBackgroundImage || false
-    //     };
-    //   };
-    // })(fabric.Group.prototype.toObject);
 
     // Save canvas JSON
     document.getElementById('getJson').onclick = async () => {
@@ -805,12 +761,12 @@ export default {
           console.log('ccc====', i.model)
           return i.model == this.selectedm
         })
-        this.submsgno = this.submsgno.map((data, i) => {
+        this.submsgno = [...new Set(this.submsgno.map(item => item.submsgno))].map((unique) => {
           return {
-            value: data.submsgno,
-            text: data.submsgno
-          }
-        })
+            value: unique,
+            text: unique
+          };
+        });
         this.submsgno.push({ "value": null, "text": "Please select an option" })
       }).catch(error => {
         console.error('Error fetching data:', error.message);
@@ -846,52 +802,8 @@ export default {
       this.selectconversion()
     },
 
-    // async sendCanvasDataToAPI(obj) {
-    //   const formData = new FormData();
-    //   const canvasData = [];
-
-    //   for (let i = 0; i < obj.length; i++) {
-    //     const item = obj[i];
-    //     const data = { ...item };
-
-    //     // ถ้ามีรูป base64 ให้อัปโหลดเป็นไฟล์
-    //     if (item.hasBackgroundImage && item.backgroundImageSrc?.startsWith('data:image/')) {
-    //       const blob = await (await fetch(item.backgroundImageSrc)).blob();
-    //       const filename = `bg_${Date.now()}_${i}.png`;
-    //       formData.append('images', blob, filename);
-    //       data.backgroundImageSrc = `/uploads/${filename}`; // เก็บ path ไว้ใน DB
-    //     }
-
-    //     canvasData.push(data);
-    //   }
-
-    //   formData.append('canvasData', JSON.stringify(canvasData));
-    //   console.log('showimage=====', canvasData)
-    //   for (let i = 0; i < obj.length; i++) {
-    //     const item = obj[i];
-
-    //     if (item.hasBackgroundImage && item.backgroundImageSrc?.startsWith('data:image/')) {
-    //       const blob = await (await fetch(item.backgroundImageSrc)).blob();
-    //       const filename = `bg_${Date.now()}_${i}.png`;
-    //       formData.append('images', blob, filename);
-
-    //       // ✅ สำคัญ! ตั้งค่าชื่อไฟล์สำหรับเก็บใน DB
-    //       item.backgroundImageSrc = `/uploads/${filename}`;
-    //     }
-    //   }
-    //   axios.post('http://localhost:4000/boxstation2/upload', formData, {
-    //     headers: { 'Content-Type': 'multipart/form-data' }
-    //   })
-    //     .then((res) => {
-    //       alert('Insert success!');
-    //       console.log(res.data);
-    //     })
-    //     .catch((err) => {
-    //       alert('Insert failed!');
-    //       console.error(err);
-    //     });
-    // },
     async sendCanvasDataToAPI(obj) {
+      console.log('obj======', obj[41])
       const formData = new FormData();
       const canvasData = [];
 

@@ -82,11 +82,10 @@
                 </b-row>
               </div>
               <br>
-              <div>
-                <div v-for="(item, index) in stringA" :key="index">
-                  <b-input :value="item.submsg + ', ' + item.part_name" placeholder="..."></b-input>
-                </div>
+              <div class="pretty-box" v-for="(item, index) in stringA" :key="index" style="">
+                {{ item.submsg + ', ' + item.part_name }}
               </div>
+              <b-button variant="outline-danger" style="margin: 5px;" v-on:click="removeA()">ลบข้อมูล A</b-button>
             </div>
             <br>
             <div>
@@ -109,11 +108,10 @@
                 </b-row>
               </div>
               <br>
-              <div>
-                <div v-for="(item, index) in stringB" :key="index">
-                  <b-input :value="item.submsg + ', ' + item.part_name" placeholder="..."></b-input>
-                </div>
+              <div class="pretty-box" v-for="(item, index) in stringB" :key="index">
+                {{ item.submsg + ', ' + item.part_name }}
               </div>
+              <b-button variant="outline-danger" style="margin: 5px;" v-on:click="removeB()">ลบข้อมูล B</b-button>
             </div>
           </b-col>
           <b-col></b-col>
@@ -121,7 +119,7 @@
         <br>
         <b-row>
           <b-col>
-            <b-button variant="outline-primary" style="margin: 5px;" v-on:click="addSetting()">Add Station</b-button>
+            <b-button variant="outline-success" style="margin: 5px;" v-on:click="addSetting()">Add Station</b-button>
           </b-col>
           <b-col>
             <b-button variant="outline-primary" style="margin: 5px;" v-on:click="updateStation()">Update
@@ -132,7 +130,7 @@
               Station</b-button>
           </b-col>
         </b-row>
-        {{ setting }}
+        <!-- {{ setting }} -->
         <br>
       </b-container>
     </div>
@@ -236,8 +234,8 @@ export default {
         this.selected = this.CallStationData[0].picking_sequence
         this.selected2 = this.CallStationData[0].lot_size
         this.selected3 = this.CallStationData[0].condition
-        this.stringA = this.CallStationData[0].sa
-        this.stringB = this.CallStationData[0].sb
+        this.stringA = JSON.parse(this.CallStationData[0].sa)
+        this.stringB = JSON.parse(this.CallStationData[0].sb)
       }).catch(error => {
         console.error('Error fetching data:', error.message);
       });
@@ -252,6 +250,7 @@ export default {
         sa: JSON.stringify(this.stringA),
         sb: JSON.stringify(this.stringB)
       }
+      console.log('update========', dataStationUpdate)
       axios.post('http://localhost:4000/updateallstation', dataStationUpdate).then(response => {
         // console.log('allstation', response.data.result)
         this.selecteds = null
@@ -407,6 +406,33 @@ export default {
 
       console.log('stringA รวมทั้งหมด:', this.stringB);
     },
+    removeA() {
+      console.log('StringA', this.stringA)
+      this.stringA = ''
+    },
+    removeB() {
+      console.log('StringA', this.stringB)
+      this.stringB = ''
+    }
   }
 }
 </script>
+<style>
+.pretty-box {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  color: #333333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pretty-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
